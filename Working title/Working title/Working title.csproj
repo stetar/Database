@@ -43,6 +43,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Buttons\LoginOk.cs" />
     <Compile Include="UI\Buttons\Register.cs" />
+    <Compile Include="UI\InputFields\InputLogin.cs" />
+    <Compile Include="UI\InputFields\InputPassword.cs" />
+    <Compile Include="UI\InputFields\WishedLogin.cs" />
+    <Compile Include="UI\InputFields\WishedPassword.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
