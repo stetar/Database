@@ -7,7 +7,10 @@ namespace Working_title.MapGenerator
     public class Cell : BuildObject
     {
         public bool IsEmpty;
-        public List<Vector2> Directions = new List<Vector2>(); 
+        public bool IsRoomExit;
+        public List<Vector2> Directions = new List<Vector2>();
+        public Cell ParentCell;
+        
 
         public Cell() : 
             base(Vector2.Zero, new Size(0,0))
@@ -33,15 +36,18 @@ namespace Working_title.MapGenerator
             Directions.Add(direction);
         }
 
-        public void RemoveDirection(Vector2 direction)
+        public void RemovePasssageTo(Cell cell)
         {
-            Directions.Remove(direction);
+            Vector2 DirectionToRemove = cell.Position - Position;
+            Directions.Remove(DirectionToRemove);
         }
 
         public bool HasDirection(Vector2 direction)
         {
             return Directions.Contains(direction);
         }
+
+
        
     }
 }

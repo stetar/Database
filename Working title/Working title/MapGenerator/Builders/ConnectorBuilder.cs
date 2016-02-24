@@ -60,7 +60,8 @@ namespace Working_title.MapGenerator
             List<Cell> Cells = BuildObjects.FindAll(buildObject => buildObject is Cell).Cast<Cell>().ToList();
             int RandomNumber = Random.Next(0, Cells.Count);
             Cell RandomCell = Cells[RandomNumber];
-            RandomCell.AddDirection(RandomCell.Position - connector.Position);
+            RandomCell.AddDirection(connector.Position - RandomCell.Position);
+            RandomCell.IsRoomExit = true;
         }
 
         private BuildObject GetRandomConnectorInRoom(Room room)

@@ -39,6 +39,7 @@ namespace Working_title.MapGenerator
                 Cell CurrentCell = GetNewestCell();
 
                 Cell RandomNeighborCell = GetRandomNeighborCell(CurrentCell);
+                RandomNeighborCell.ParentCell = CurrentCell;
 
                 if (Math.Abs(Vector2.Distance(RandomNeighborCell.Position, CurrentCell.Position)) <= 1)
                 {
