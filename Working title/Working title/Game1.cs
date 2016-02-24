@@ -67,6 +67,7 @@ namespace Working_title
             Textures.Add("Blue", Content.Load<Texture2D>("Images/Blue"));
             Textures.Add("Green", Content.Load<Texture2D>("Images/Green"));
             Textures.Add("Yellow", Content.Load<Texture2D>("Images/Yellow"));
+            Textures.Add("Black", Content.Load<Texture2D>("Images/Black"));
             Textures.Add("UpUp", Content.Load<Texture2D>("Images/UpUp"));
             Textures.Add("RightRight", Content.Load<Texture2D>("Images/RightRight"));
             Textures.Add("UpRight", Content.Load<Texture2D>("Images/UpRight"));

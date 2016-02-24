@@ -12,6 +12,11 @@
                 BuildObject.ConvertToWorldKooridinates(MapCreator.ConverterSize);
                 BuildObject.ConvertToWorldSize(MapCreator.ConverterSize);
 
+                if (BuildObject is EmptyCell)
+                {
+                    return new WallSprite(BuildObject.Position,BuildObject.Size);
+                }
+
                 if (BuildObject is Room)
                 {
                      return new RoomSprite(BuildObject.Position, BuildObject.Size);

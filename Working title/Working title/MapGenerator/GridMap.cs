@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Working_title.MapGenerator
 {
@@ -7,7 +8,24 @@ namespace Working_title.MapGenerator
         public Size Size;
 
         private BuildObject[,] Map;
-        private List<BuildObject> ObjectsInMap = new List<BuildObject>();
+        private List<BuildObject> MyObjectsAsList = new List<BuildObject>();
+
+        public List<BuildObject> ObjectsAsList
+        {
+            get
+            {
+                MyObjectsAsList.Clear();
+                for (int x = 0; x < (Map.GetLength(0)); x++)
+                {
+                    for (int y = 0; y < (Map.GetLength(1)); y++)
+                    {
+                        BuildObject BuildObject = Map[x, y];
+                        MyObjectsAsList.Add(BuildObject);
+                    }
+                }
+                return MyObjectsAsList;
+            }
+        } 
 
         public GridMap(Size gridMapSize)
         {
@@ -22,20 +40,26 @@ namespace Working_title.MapGenerator
             {
                 for (int y = 0; y < (Map.GetLength(1)); y++)
                 {
-                    Map[x, y] = null;
+                    Map[x, y] = new EmptyCell(new Vector2(x,y), new Size(1,1));
                 }
             }
         }
 
-        public BuildObject this[int index,int index2]
+        public bool IsWithinBounds(Vector2 position)
+        {
+            return Size.Width > position.X && Size.Height > position.Y &&
+                position.X >= 0 && position.Y >= 0;
+        }
+
+        public BuildObject this[int index,int index1]
         {
             get
             {
-                return Map[index,index2];
+                return Map[index,index1];
             }
             set
             {
-                Map[index, index2] = value;
+                Map[index, index1] = value;
             }
         }
 

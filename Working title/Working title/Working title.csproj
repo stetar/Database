@@ -41,8 +41,9 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="MapGenerator\Builders\BuildObject.cs" />
-    <Compile Include="MapGenerator\Builders\DeadEndRemover.cs" />
+    <Compile Include="MapGenerator\DeadEndRemover.cs" />
     <Compile Include="MapGenerator\Cell.cs" />
+    <Compile Include="MapGenerator\EmptyCell.cs" />
     <Compile Include="MapGenerator\Factories\CellCreator.cs" />
     <Compile Include="MapGenerator\Factories\CellFactory.cs" />
     <Compile Include="MapGenerator\Builders\ConnectorBuilder.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="MapSpriteClasses\DoorSprite.cs" />
     <Compile Include="MapSpriteClasses\EmptyGameObject.cs" />
     <Compile Include="MapSpriteClasses\RoomSprite.cs" />
+    <Compile Include="MapSpriteClasses\WallSprite.cs" />
     <Compile Include="StrutureObjects\CollidingSprite.cs" />
     <Compile Include="StrutureObjects\GameObject.cs" />
     <Compile Include="Limit.cs" />

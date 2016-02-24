@@ -8,7 +8,7 @@ namespace Working_title.MapGenerator
 {
     public class ConnectorBuilder : Builder
     {
-        private BuildObject[,] GridMap;
+        private GridMap GridMap;
         private Size GridSize;
         private List<BuildObject> Connectors = new List<BuildObject>();
         private List<Room> ConnectedRooms = new List<Room>(); 
@@ -23,7 +23,7 @@ namespace Working_title.MapGenerator
             new Vector2(0,-1)
         };
 
-        public ConnectorBuilder(BuildObject[,] gridMap,Size gridSize)
+        public ConnectorBuilder(GridMap gridMap, Size gridSize)
         {
             GridMap = gridMap;
             GridSize = gridSize;
@@ -102,7 +102,7 @@ namespace Working_title.MapGenerator
             foreach (var Direction in directions)
             {
                 Vector2 NewPosition = point + Direction;
-                if (IsWithinBounds(NewPosition))
+                if (GridMap.IsWithinBounds(NewPosition))
                 {
                     BuildObjects.Add(GridMap[(int)NewPosition.X, (int)NewPosition.Y]);
                 }
@@ -110,14 +110,6 @@ namespace Working_title.MapGenerator
 
             return BuildObjects;
         }
-
-        private bool IsWithinBounds(Vector2 position)
-        {
-            return GridMap.GetLength(0) > position.X && GridMap.GetLength(1) > position.Y &&
-                position.X >= 0 && position.Y >= 0;
-        }
-
-       
 
     }
 }

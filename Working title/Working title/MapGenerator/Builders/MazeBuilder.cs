@@ -13,7 +13,7 @@ namespace Working_title.MapGenerator
         
         private List<Cell> Maze = new List<Cell>();
         private List<Cell> SearchMazeList = new List<Cell>();
-        private BuildObject[,] GridMap;
+        private GridMap GridMap;
         private Random Random;
 
         private List<Vector2> Directions = new List<Vector2>()
@@ -24,7 +24,7 @@ namespace Working_title.MapGenerator
             new Vector2(0,-1)
         };
 
-        public MazeBuilder(BuildObject[,] gridMap)
+        public MazeBuilder(GridMap gridMap)
         {
             GridMap = gridMap;
             Random = new Random();
@@ -39,6 +39,7 @@ namespace Working_title.MapGenerator
                 Cell CurrentCell = GetNewestCell();
 
                 Cell RandomNeighborCell = GetRandomNeighborCell(CurrentCell);
+
                 if (Math.Abs(Vector2.Distance(RandomNeighborCell.Position, CurrentCell.Position)) <= 1)
                 {
                     CurrentCell.AddDirection(RandomNeighborCell.Position - CurrentCell.Position);
@@ -70,8 +71,7 @@ namespace Working_title.MapGenerator
 
         private Cell GetRandomCell()
         {
-            Vector2 RandomPosition = Size.GetRandomSize(new Size(0, 0),
-                new Size(GridMap.GetLength(0), GridMap.GetLength(1))).ToVector2();
+            Vector2 RandomPosition = Size.GetRandomSize(new Size(0, 0),GridMap.Size).ToVector2();
 
             return new Cell(RandomPosition, new Size(1, 1));
         }
@@ -90,7 +90,7 @@ namespace Working_title.MapGenerator
             {
                 CurrentDirection = GetRandomDirectionNotTaken(DirectionsTaken);
                 Vector2 NewCellPosition = cell.Position + CurrentDirection;
-                if (IsWithinBounds(NewCellPosition) && GridMap[(int)NewCellPosition.X, (int)NewCellPosition.Y] == null)
+                if (GridMap.IsWithinBounds(NewCellPosition) && GridMap[(int)NewCellPosition.X, (int)NewCellPosition.Y] is EmptyCell)
                 {
                     Cell NewCell = new Cell(NewCellPosition, CurrentDirection, new Size(1,1));
                     GridMap[(int) NewCellPosition.X, (int) NewCellPosition.Y] = NewCell;
@@ -124,11 +124,7 @@ namespace Working_title.MapGenerator
             Maze.DoActionOnItems(cell => cell.ConvertToWorldKooridinates(converterSize));
         }
 
-        private bool IsWithinBounds(Vector2 position)
-        {
-            return GridMap.GetLength(0) > position.X && GridMap.GetLength(1) > position.Y &&
-                position.X >= 0 && position.Y >= 0;
-        }
+      
 
 
 

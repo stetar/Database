@@ -19,10 +19,10 @@ namespace Working_title.MapGenerator
         private List<Room> Rooms = new List<Room>();
         private Size GridMapSize;
         private Size CellSize;
-        private BuildObject[,] GridMap;
+        private GridMap GridMap;
          
 
-        public RoomBuilder(Size gridMapSize, BuildObject[,] gridMap)
+        public RoomBuilder(Size gridMapSize, GridMap gridMap)
         {
             GridMapSize = gridMapSize;
             GridMap = gridMap;

@@ -14,6 +14,7 @@ namespace Working_title.MapGenerator
         private RoomBuilder RoomBuilder;
         private MazeBuilder MazeBuilder;
         private ConnectorBuilder ConnectorBuilder;
+        private DeadEndRemover DeadEndRemover;
         private GridMap GridMap;
         private CellFactory CellFactory;
         private MapFactory MapFactory;
@@ -29,6 +30,7 @@ namespace Working_title.MapGenerator
             RoomBuilder = new RoomBuilder(GridMap.Size, GridMap);
             MazeBuilder = new MazeBuilder(GridMap);
             ConnectorBuilder = new ConnectorBuilder(GridMap, GridMap.Size);
+            DeadEndRemover = new DeadEndRemover(GridMap);
         }
  
 
@@ -37,16 +39,15 @@ namespace Working_title.MapGenerator
             RoomBuilder.Build();
             MazeBuilder.Build();
             ConnectorBuilder.Build();
+            DeadEndRemover.Start();
 
-            for (int x = 0; x < (GridMap.GetLength(0)); x++)
+            foreach (var BuildObject in GridMap.ObjectsAsList)
             {
-                for (int y = 0; y < (GridMap.GetLength(1)); y++)
-                {
-                    BuildObject BuildObject = GridMap[x, y];
-                    MapCreator = new MapCreator(MapFactory,BuildObject,CellSize,CellFactory);
-                    Game1.AddObjectInNextCycle(MapCreator.CreateObject());
-                }
+                MapCreator = new MapCreator(MapFactory, BuildObject, CellSize, CellFactory);
+                Game1.AddObjectInNextCycle(MapCreator.CreateObject());
             }
+                    
+             
         }
     }
 }

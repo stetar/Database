@@ -81,7 +81,7 @@ namespace Working_title.MapGenerator
                 return new DownRightCell(CellCreator.StartPosition, CellCreator.Size);
             }
 
-            return new EmptyCell();
+            return new EmptyGameObject();
         }
 
         private bool IsMoving(List<Vector2> directions,Vector2 directionToCheck)

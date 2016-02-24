@@ -32,6 +32,16 @@ namespace Working_title.MapGenerator
         {
             Directions.Add(direction);
         }
+
+        public void RemoveDirection(Vector2 direction)
+        {
+            Directions.Remove(direction);
+        }
+
+        public bool HasDirection(Vector2 direction)
+        {
+            return Directions.Contains(direction);
+        }
        
     }
 }
