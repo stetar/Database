@@ -36,7 +36,8 @@ namespace Working_title.MapGenerator
             {
                 for (int y = 0; y < GridSize.Height; y++)
                 {
-                    Room Room = GridMap[x, y] as Room;
+                    Vector2 CurrentPositon = new Vector2(x,y);
+                    Room Room = GridMap[CurrentPositon] as Room;
                     if (Room != null)
                     {
                         BuildObject RandomConnectorInRoom = GetRandomConnectorInRoom(Room);
@@ -44,7 +45,7 @@ namespace Working_title.MapGenerator
                         {
                             SetCellToPointToRoom(RandomConnectorInRoom);
                             Connectors.Add(RandomConnectorInRoom);
-                            GridMap[x, y] = new Door(RandomConnectorInRoom.Position, new Size(1,1));
+                            GridMap[CurrentPositon] = new Door(RandomConnectorInRoom.Position, new Size(1,1));
                             ConnectedRooms.Add(Room);
                         }
                     }
@@ -105,7 +106,7 @@ namespace Working_title.MapGenerator
                 Vector2 NewPosition = point + Direction;
                 if (GridMap.IsWithinBounds(NewPosition))
                 {
-                    BuildObjects.Add(GridMap[(int)NewPosition.X, (int)NewPosition.Y]);
+                    BuildObjects.Add(GridMap[NewPosition]);
                 }
             }
 

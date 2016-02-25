@@ -15,9 +15,9 @@ namespace Working_title.MapGenerator
             get
             {
                 MyObjectsAsList.Clear();
-                for (int x = 0; x < (Map.GetLength(0)); x++)
+                for (int x = 0; x < Size.Width; x++)
                 {
-                    for (int y = 0; y < (Map.GetLength(1)); y++)
+                    for (int y = 0; y < Size.Height; y++)
                     {
                         BuildObject BuildObject = Map[x, y];
                         MyObjectsAsList.Add(BuildObject);
@@ -51,15 +51,15 @@ namespace Working_title.MapGenerator
                 position.X >= 0 && position.Y >= 0;
         }
 
-        public BuildObject this[int index,int index1]
+        public BuildObject this[Vector2 position]
         {
             get
             {
-                return Map[index,index1];
+                return Map[(int)position.X, (int)position.Y];
             }
             set
             {
-                Map[index, index1] = value;
+                Map[(int)position.X, (int)position.Y] = value;
             }
         }
 

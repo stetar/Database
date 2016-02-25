@@ -91,10 +91,10 @@ namespace Working_title.MapGenerator
             {
                 CurrentDirection = GetRandomDirectionNotTaken(DirectionsTaken);
                 Vector2 NewCellPosition = cell.Position + CurrentDirection;
-                if (GridMap.IsWithinBounds(NewCellPosition) && GridMap[(int)NewCellPosition.X, (int)NewCellPosition.Y] is EmptyCell)
+                if (GridMap.IsWithinBounds(NewCellPosition) && GridMap[NewCellPosition] is EmptyCell)
                 {
                     Cell NewCell = new Cell(NewCellPosition, CurrentDirection, new Size(1,1));
-                    GridMap[(int) NewCellPosition.X, (int) NewCellPosition.Y] = NewCell;
+                    GridMap[NewCellPosition] = NewCell;
                     return NewCell;
                 }
 

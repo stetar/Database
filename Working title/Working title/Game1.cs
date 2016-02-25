@@ -13,7 +13,6 @@ namespace Working_title
 
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
         private LoginOk btnLoginOk;
         private Register btnRegister;
         int screenWidth = 800;
@@ -52,8 +51,6 @@ namespace Working_title
 
         protected override void Initialize()
         {
-
-            MapBuilder = new MapBuilder(new Size(Graphics.PreferredBackBufferWidth, Graphics.PreferredBackBufferHeight));
             base.Initialize();
         }
 
@@ -66,22 +63,27 @@ namespace Working_title
             // Create a new SpriteBatch, which can be used to draw textures.
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            graphics.PreferredBackBufferWidth = screenWidth;
-            graphics.PreferredBackBufferHeight = screenHeight;
-
-            graphics.ApplyChanges();
-            IsMouseVisible = true;
-
-            btnLoginOk = new LoginOk(Content.Load<Texture2D>("BtnOk"), graphics.GraphicsDevice);
-            btnLoginOk.SetPosition(new Vector2(475, 500));
-
-            btnRegister = new Register(Content.Load<Texture2D>("BtnRegister"), graphics.GraphicsDevice);
-            btnRegister.SetPosition(new Vector2(175, 500));
+            LoadLoginStuff();
             LoadTextures();
             LoadSpriteFonts();
             LoadContentOnSprites();
             // Kommenter linjen under ud, hvis man ikke vil have at mappet automatisk fylder skærmen.
-            LoadMap();
+            //LoadMap();
+        }
+
+        private void LoadLoginStuff()
+        {
+            Graphics.PreferredBackBufferWidth = screenWidth;
+            Graphics.PreferredBackBufferHeight = screenHeight;
+
+            Graphics.ApplyChanges();
+            IsMouseVisible = true;
+
+            btnLoginOk = new LoginOk(Content.Load<Texture2D>("BtnOk"), Graphics.GraphicsDevice);
+            btnLoginOk.SetPosition(new Vector2(475, 500));
+
+            btnRegister = new Register(Content.Load<Texture2D>("BtnRegister"), Graphics.GraphicsDevice);
+            btnRegister.SetPosition(new Vector2(175, 500));
         }
 
         private void LoadTextures()
@@ -113,6 +115,7 @@ namespace Working_title
 
         private void LoadMap()
         {
+            MapBuilder = new MapBuilder(new Size(Graphics.PreferredBackBufferWidth, Graphics.PreferredBackBufferHeight));
             Thread MapBuilderThread = new Thread(() => MapBuilder.Build());
             MapBuilderThread.Start();
         }
@@ -185,6 +188,15 @@ namespace Working_title
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             SpriteBatch.Begin(SpriteSortMode.FrontToBack);
+            DrawSprites(SpriteBatch);
+            DrawLoginScreen(SpriteBatch);
+            SpriteBatch.End();
+            
+            base.Draw(gameTime);
+        }
+
+        private void DrawLoginScreen(SpriteBatch spriteBatch)
+        {
             switch (CurrentGameState)
             {
                 case GameState.Login:
@@ -206,10 +218,7 @@ namespace Working_title
                     this.Exit();
                     break;
             }
-            DrawSprites(SpriteBatch);
-            spriteBatch.End();
-
-            base.Draw(gameTime);
+            
         }
 
         private void DrawSprites(SpriteBatch spriteBatch)

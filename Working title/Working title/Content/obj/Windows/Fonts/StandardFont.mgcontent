@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/TheBananaPc/Source/Repos/Database/Working title/Working title/Content/Fonts/StandardFont.spritefont</SourceFile>
+  <SourceTime>2016-02-23T14:22:46+01:00</SourceTime>
+  <DestFile>C:/Users/TheBananaPc/Source/Repos/Database/Working title/Working title/Content/bin/Windows/Fonts/StandardFont.xnb</DestFile>
+  <DestTime>2016-02-25T01:31:02.7970147+01:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2015-04-29T19:14:44+02:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2015-04-29T19:14:44+02:00</ProcessorTime>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

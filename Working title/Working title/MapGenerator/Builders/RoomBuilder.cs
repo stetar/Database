@@ -60,7 +60,7 @@ namespace Working_title.MapGenerator
             Rooms.Add(room);
             foreach (var RoomPosition in room.Positions())
             {
-                GridMap[(int) RoomPosition.X, (int) RoomPosition.Y] = room;
+                GridMap[RoomPosition] = room;
             }
         }
 
