@@ -77,17 +77,14 @@
     <Compile Include="MapGenerator\Builders\RoomBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-<<<<<<< HEAD
     <Compile Include="UI\Buttons\LoginOk.cs" />
     <Compile Include="UI\Buttons\Register.cs" />
     <Compile Include="UI\InputFields\InputLogin.cs" />
     <Compile Include="UI\InputFields\InputPassword.cs" />
     <Compile Include="UI\InputFields\WishedLogin.cs" />
     <Compile Include="UI\InputFields\WishedPassword.cs" />
-=======
     <Compile Include="StrutureObjects\NonCollidingSprite.cs" />
     <Compile Include="StrutureObjects\Sprite.cs" />
->>>>>>> MapGenerator
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
