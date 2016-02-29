@@ -2,8 +2,10 @@
 
 namespace Working_title.MapGenerator
 {
+    public delegate void BuilderCallback(List<BuildObject> buildObjects);
+
     public interface Builder
     {
-        List<BuildObject> Build();
+        void Build(BuilderCallback builderCallback);
     }
 }

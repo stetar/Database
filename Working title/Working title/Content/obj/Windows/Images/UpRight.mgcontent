@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Jensenn/Documents/GitHubVisualStudio/Database/Working title/Working title/Content/Images/UpRight.png</SourceFile>
-  <SourceTime>2016-02-26T13:16:46.1516779+01:00</SourceTime>
-  <DestFile>C:/Users/Jensenn/Documents/GitHubVisualStudio/Database/Working title/Working title/Content/bin/Windows/Images/UpRight.xnb</DestFile>
-  <DestTime>2016-02-26T13:17:01.5795603+01:00</DestTime>
+  <SourceFile>C:/Users/TheBananaPc/Source/Repos/Database/Working title/Working title/Content/Images/UpRight.png</SourceFile>
+  <SourceTime>2016-02-23T16:10:24+01:00</SourceTime>
+  <DestFile>C:/Users/TheBananaPc/Source/Repos/Database/Working title/Working title/Content/bin/Windows/Images/UpRight.xnb</DestFile>
+  <DestTime>2016-02-28T17:25:36.4789769+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2015-04-29T19:14:44+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

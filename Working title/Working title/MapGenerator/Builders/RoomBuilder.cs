@@ -28,7 +28,7 @@ namespace Working_title.MapGenerator
             GridMap = gridMap;
         }
 
-        public List<BuildObject> Build()
+        public void Build(BuilderCallback builderCallback)
         {
             int RoomsToBuild = RoomLimit.RandomIntWithinLimit();
 
@@ -52,7 +52,7 @@ namespace Working_title.MapGenerator
                 }
             }
 
-            return Rooms.Cast<BuildObject>().ToList();
+            builderCallback(Rooms.Cast<BuildObject>().ToList());
         }
 
         private void AddRoom(Room room)

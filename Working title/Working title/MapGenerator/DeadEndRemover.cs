@@ -17,8 +17,12 @@
 
                 while (CurrentCell?.Directions.Count == 1 && !CurrentCell.IsRoomExit)
                 {
-                    GridMap[CurrentCell.Position] = new EmptyCell(CurrentCell.Position,CurrentCell.Size);
+                    GridMap[CurrentCell.Position] = new Wall(CurrentCell.Position,CurrentCell.Size);
                     Cell CellCommingFrom = CurrentCell.ParentCell;
+                    if (CellCommingFrom.IsRoomExit)
+                    {
+                        break;
+                    }
                     CellCommingFrom.RemovePasssageTo(CurrentCell);
                     CurrentCell = CellCommingFrom;
                 }

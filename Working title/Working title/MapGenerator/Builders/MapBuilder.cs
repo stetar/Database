@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Working_title.MapGenerator
 {
-    public class MapBuilder
+    public class MapBuilder : Builder
     {
-        private readonly Size CellSize = new Size(15, 15);
+        private readonly Size CellSize = new Size(30, 30);
 
         private Size MapSize;
 
@@ -15,39 +15,40 @@ namespace Working_title.MapGenerator
         private MazeBuilder MazeBuilder;
         private ConnectorBuilder ConnectorBuilder;
         private DeadEndRemover DeadEndRemover;
-        private GridMap GridMap;
+        private GridMap MyGridMap;
         private CellFactory CellFactory;
         private MapFactory MapFactory;
         private MapCreator MapCreator;
-        private List<Room> RoomsAdded = new List<Room>(); 
+
+        public GridMap GridMap => MyGridMap;
 
         public MapBuilder(Size mapSize)
         {
             CellFactory = new CellFactory();
             MapFactory = new MapFactory();
             MapSize = mapSize;
-            GridMap = new GridMap(MapSize / CellSize);
-            RoomBuilder = new RoomBuilder(GridMap.Size, GridMap);
-            MazeBuilder = new MazeBuilder(GridMap);
-            ConnectorBuilder = new ConnectorBuilder(GridMap, GridMap.Size);
-            DeadEndRemover = new DeadEndRemover(GridMap);
+            MyGridMap = new GridMap(MapSize / CellSize,CellSize);
+            RoomBuilder = new RoomBuilder(MyGridMap.Size, MyGridMap);
+            MazeBuilder = new MazeBuilder(MyGridMap);
+            ConnectorBuilder = new ConnectorBuilder(MyGridMap, MyGridMap.Size);
+            DeadEndRemover = new DeadEndRemover(MyGridMap);
         }
  
 
-        public void Build()
+        public void Build(BuilderCallback builderCallback)
         {
-            RoomBuilder.Build();
-            MazeBuilder.Build();
-            ConnectorBuilder.Build();
+            RoomBuilder.Build(delegate { });
+            MazeBuilder.Build(delegate { });
+            ConnectorBuilder.Build(delegate { });
             DeadEndRemover.Start();
 
-            foreach (var BuildObject in GridMap.ObjectsAsList)
+            foreach (var BuildObject in MyGridMap.ObjectsAsList)
             {
                 MapCreator = new MapCreator(MapFactory, BuildObject, CellSize, CellFactory);
                 Game1.AddObjectInNextCycle(MapCreator.CreateObject());
             }
-                    
-             
+
+            builderCallback(MyGridMap.ObjectsAsList);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Working_title.Cells
             base(position)
         {
             TextureName = "UpUp";
-            
+            TextureSize = size;
         }
 
     }

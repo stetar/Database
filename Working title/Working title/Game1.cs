@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using The_RPG_thread_game.Utillity;
 using Working_title.UI.Buttons;
 using Working_title.Cells;
 using Working_title.MapGenerator;
+using Working_title.MoveableClasses;
+using Working_title.Screens;
+using Working_title.Setup;
 
 
 namespace Working_title
@@ -13,45 +18,71 @@ namespace Working_title
 
     public class Game1 : Game
     {
-        private LoginOk btnLoginOk;
-        private Register btnRegister;
-        int screenWidth = 800;
-        int screenHeight = 600;
 
-        enum GameState
-        {
-            Login,      // Login, Password, OK, Register 
-            Register,   // Hvis register er valgt : Wished login, Wished password, Ok, --> Gem database --> Send til MainMenu 
-            MainMenu,   // Start Game, About the game, Credits, Exit Game
-            Playing,    // Spillogik her
-            Closing,    // Gemmer alt data til databaserne så progression ikke mistes.
-        }
-
-        GameState CurrentGameState = GameState.Login;
+        public static GameState CurrentGameState = GameState.Login;
         public static List<GameObject> Objects = new List<GameObject>();
         public static List<CollidingSprite> CollidingSprites = new List<CollidingSprite>();
         public static Dictionary<string,Texture2D> Textures = new Dictionary<string, Texture2D>();
-        public static Dictionary<string,SpriteFont> SpriteFonts = new Dictionary<string, SpriteFont>(); 
+        public static Dictionary<string,SpriteFont> SpriteFonts = new Dictionary<string, SpriteFont>();
 
+        private static GraphicsDeviceManager Graphics;
         private static List<GameObject> ObjectsToAddInNextCycle = new List<GameObject>();
         private static List<GameObject> ObjectsToRemoveInNextCycle = new List<GameObject>();
+        private static GameState LastGameState = GameState.None;
 
-        private GraphicsDeviceManager Graphics;
         private SpriteBatch SpriteBatch;
-        private MapBuilder MapBuilder;
         private static object SyncObject = new object();
+        private List<WorldSetup> WorldSetups = new List<WorldSetup>();
+        private List<Screen> Screens = new List<Screen>();
+        private Screen CurrentScreen;
+        
+
+        public static Size ScreenSize
+        {
+            get
+            {
+                return new Size(Graphics.PreferredBackBufferWidth, Graphics.PreferredBackBufferHeight);
+            }
+            set
+            {
+                Graphics.PreferredBackBufferWidth = value.Width;
+                Graphics.PreferredBackBufferHeight = value.Height;
+
+                Graphics.ApplyChanges();
+            }
+        } 
 
 
         public Game1()
         {
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
+            AddWorldSetups();
+            AddScreens();
         }
 
 
         protected override void Initialize()
         {
             base.Initialize();
+            WorldSetups.DoActionOnItems(setup => setup.Init());
+            Screens.DoActionOnItems(screen => screen.Init());
+        }
+
+        private void AddWorldSetups()
+        {
+            WorldSetups.Add(new DebugSetup());
+            WorldSetups.Add(new GeneralSetup());
+            WorldSetups.Add(new LoginSetup());
+            WorldSetups.Add(new MapSetup());
+            WorldSetups.Add(new PlayerSetup());
+        }
+
+        private void AddScreens()
+        {
+            Screens.Add(new LoginScreen());
+            Screens.Add(new MapScreen());
         }
 
         /// <summary>
@@ -62,65 +93,8 @@ namespace Working_title
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             SpriteBatch = new SpriteBatch(GraphicsDevice);
-
-            LoadLoginStuff();
-            LoadTextures();
-            LoadSpriteFonts();
-            LoadContentOnSprites();
-            // Kommenter linjen under ud, hvis man ikke vil have at mappet automatisk fylder skærmen.
-            //LoadMap();
+            WorldSetups.DoActionOnItems(setup => setup.LoadContent(Content));
         }
-
-        private void LoadLoginStuff()
-        {
-            Graphics.PreferredBackBufferWidth = screenWidth;
-            Graphics.PreferredBackBufferHeight = screenHeight;
-
-            Graphics.ApplyChanges();
-            IsMouseVisible = true;
-
-            btnLoginOk = new LoginOk(Content.Load<Texture2D>("BtnOk"), Graphics.GraphicsDevice);
-            btnLoginOk.SetPosition(new Vector2(475, 500));
-
-            btnRegister = new Register(Content.Load<Texture2D>("BtnRegister"), Graphics.GraphicsDevice);
-            btnRegister.SetPosition(new Vector2(175, 500));
-        }
-
-        private void LoadTextures()
-        {
-            Textures.Add("Blue", Content.Load<Texture2D>("Images/Blue"));
-            Textures.Add("Green", Content.Load<Texture2D>("Images/Green"));
-            Textures.Add("Yellow", Content.Load<Texture2D>("Images/Yellow"));
-            Textures.Add("Black", Content.Load<Texture2D>("Images/Black"));
-            Textures.Add("UpUp", Content.Load<Texture2D>("Images/UpUp"));
-            Textures.Add("RightRight", Content.Load<Texture2D>("Images/RightRight"));
-            Textures.Add("UpRight", Content.Load<Texture2D>("Images/UpRight"));
-            Textures.Add("UpLeft", Content.Load<Texture2D>("Images/UpLeft"));
-            Textures.Add("DownLeft", Content.Load<Texture2D>("Images/DownLeft"));
-            Textures.Add("DownRight", Content.Load<Texture2D>("Images/DownRight"));
-        }
-
-        private void LoadSpriteFonts()
-        {
-            SpriteFonts.Add("StandardFont", Content.Load<SpriteFont>("Fonts/StandardFont"));
-        }
-
-        private void LoadContentOnSprites()
-        {
-            foreach (var GameObject in Objects)
-            {
-                (GameObject as Sprite)?.LoadContent();
-            }
-        }
-
-        private void LoadMap()
-        {
-            MapBuilder = new MapBuilder(new Size(Graphics.PreferredBackBufferWidth, Graphics.PreferredBackBufferHeight));
-            Thread MapBuilderThread = new Thread(() => MapBuilder.Build());
-            MapBuilderThread.Start();
-        }
-
-       
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -132,25 +106,33 @@ namespace Working_title
             Content.Unload();
         }
 
-
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
             RemoveObjects();
             AddObjects();
 
-            MouseState mouseState = Mouse.GetState();
+            if (CurrentGameState != LastGameState)
+            {
+                CurrentScreen?.UnLoad();
+                LoadScreen(CurrentGameState);
+                CurrentScreen?.Load();
+            }
+            LastGameState = CurrentGameState;
+            UpdateObjects(gameTime);
 
-            switch (CurrentGameState)
+            base.Update(gameTime);
+        }
+
+        private void LoadScreen(GameState gameState)
+        {
+            switch (gameState)
             {
                 case GameState.Login:
-                    if (btnLoginOk.LoginOkIsClicked == true) CurrentGameState = GameState.MainMenu;
-                    if (btnRegister.RegisterIsClicked == true) CurrentGameState = GameState.Register;
-
-                    btnLoginOk.Update(mouseState);
-                    btnRegister.Update(mouseState);
+                    CurrentScreen = Screens.Find(screen => screen is LoginScreen);
                     break;
 
                 case GameState.Register:
@@ -160,15 +142,12 @@ namespace Working_title
                     break;
 
                 case GameState.Playing:
+                    CurrentScreen = Screens.Find(screen => screen is MapScreen);
                     break;
 
                 case GameState.Closing:
                     break;
             }
-
-
-            UpdateObjects(gameTime);
-            base.Update(gameTime);
         }
 
 
@@ -176,7 +155,9 @@ namespace Working_title
         {
             foreach (var GameObject in Objects)
             {
-                GameObject.Update(gameTime.ElapsedGameTime.Milliseconds);
+                UiButton UiButton = GameObject as UiButton;
+                UiButton?.Update(Mouse.GetState());
+                GameObject.Update(gameTime);
             }
         }
 
@@ -187,39 +168,14 @@ namespace Working_title
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
             SpriteBatch.Begin(SpriteSortMode.FrontToBack);
             DrawSprites(SpriteBatch);
-            DrawLoginScreen(SpriteBatch);
             SpriteBatch.End();
             
             base.Draw(gameTime);
         }
 
-        private void DrawLoginScreen(SpriteBatch spriteBatch)
-        {
-            switch (CurrentGameState)
-            {
-                case GameState.Login:
-                    spriteBatch.Draw(Content.Load<Texture2D>("loginBg"), new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
-                    btnLoginOk.Draw(spriteBatch);
-                    btnRegister.Draw(spriteBatch);
-                    break;
-
-                case GameState.Register:
-                    break;
-
-                case GameState.MainMenu:
-                    break;
-
-                case GameState.Playing:
-                    break;
-
-                case GameState.Closing:
-                    this.Exit();
-                    break;
-            }
-            
-        }
 
         private void DrawSprites(SpriteBatch spriteBatch)
         {

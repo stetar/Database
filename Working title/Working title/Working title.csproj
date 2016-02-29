@@ -40,10 +40,20 @@
   <ItemGroup>
     <Compile Include="Extensions.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="GameWorld\Screens\LoginScreen.cs" />
+    <Compile Include="GameWorld\Screens\MapScreen.cs" />
+    <Compile Include="GameWorld\Setup\DebugSetup.cs" />
+    <Compile Include="GameWorld\Setup\GeneralSetup.cs" />
+    <Compile Include="GameWorld\Setup\LoginSetup.cs" />
+    <Compile Include="GameWorld\Setup\MapSetup.cs" />
+    <Compile Include="GameWorld\Setup\PlayerSetup.cs" />
+    <Compile Include="GameWorld\Screens\Screen.cs" />
     <Compile Include="MapGenerator\Builders\BuildObject.cs" />
     <Compile Include="MapGenerator\Cell.cs" />
     <Compile Include="MapGenerator\DeadEndRemover.cs" />
-    <Compile Include="MapGenerator\EmptyCell.cs" />
+    <Compile Include="MapGenerator\Empty.cs" />
+    <Compile Include="MapGenerator\Wall.cs" />
     <Compile Include="MapGenerator\Factories\CellCreator.cs" />
     <Compile Include="MapGenerator\Factories\CellFactory.cs" />
     <Compile Include="MapGenerator\Builders\ConnectorBuilder.cs" />
@@ -53,7 +63,6 @@
     <Compile Include="MapGenerator\Factories\MapCreator.cs" />
     <Compile Include="MapGenerator\Factories\MapFactory.cs" />
     <Compile Include="MapGenerator\GridMap.cs" />
-    <Compile Include="MapGenerator\GridType.cs" />
     <Compile Include="MapGenerator\Builders\MazeBuilder.cs" />
     <Compile Include="MapGenerator\Room.cs" />
     <Compile Include="MapSpriteClasses\CellSprite.cs" />
@@ -68,6 +77,11 @@
     <Compile Include="MapSpriteClasses\EmptyGameObject.cs" />
     <Compile Include="MapSpriteClasses\RoomSprite.cs" />
     <Compile Include="MapSpriteClasses\WallSprite.cs" />
+    <Compile Include="MoveableClasses\KeyChecker.cs" />
+    <Compile Include="MoveableClasses\GridObjectMover.cs" />
+    <Compile Include="MoveableClasses\KeyMoveInput.cs" />
+    <Compile Include="MoveableClasses\KeyState.cs" />
+    <Compile Include="MoveableClasses\Player.cs" />
     <Compile Include="StrutureObjects\CollidingSprite.cs" />
     <Compile Include="StrutureObjects\GameObject.cs" />
     <Compile Include="Limit.cs" />
@@ -77,6 +91,10 @@
     <Compile Include="MapGenerator\Builders\RoomBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StrutureObjects\NonCollidingStaticSprite.cs" />
+    <Compile Include="UI\Buttons\StartGame.cs" />
+    <Compile Include="UI\Buttons\UiButton.cs" />
+    <Compile Include="UI\Buttons\UIButtonState.cs" />
     <Compile Include="UI\Buttons\LoginOk.cs" />
     <Compile Include="UI\Buttons\Register.cs" />
     <Compile Include="UI\InputFields\InputLogin.cs" />
@@ -85,6 +103,7 @@
     <Compile Include="UI\InputFields\WishedPassword.cs" />
     <Compile Include="StrutureObjects\NonCollidingSprite.cs" />
     <Compile Include="StrutureObjects\Sprite.cs" />
+    <Compile Include="GameWorld\Setup\WorldSetup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -106,7 +125,9 @@
     <Content Include="Content\Images\Downleft.png" />
     <Content Include="Content\Images\DownRight.png" />
     <Content Include="Content\Images\green.png" />
+    <Content Include="Content\Images\player.png" />
     <Content Include="Content\Images\RightRight.png" />
+    <Content Include="Content\Images\StartGame.png" />
     <Content Include="Content\Images\UpLeft.png" />
     <Content Include="Content\Images\UpRight.png" />
     <Content Include="Content\Images\UpUp.png" />
