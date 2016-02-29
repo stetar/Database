@@ -2,9 +2,9 @@
 
 namespace Working_title.MapGenerator
 {
-    public class EmptyCell : Cell
+    public class Wall : BuildObject
     {
-        public EmptyCell(Vector2 position, Size size) : 
+        public Wall(Vector2 position, Size size) : 
             base(position,size)
         {
             

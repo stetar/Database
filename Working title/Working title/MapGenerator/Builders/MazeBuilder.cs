@@ -16,21 +16,13 @@ namespace Working_title.MapGenerator
         private GridMap GridMap;
         private Random Random;
 
-        private List<Vector2> Directions = new List<Vector2>()
-        {
-            new Vector2(1,0),
-            new Vector2(-1,0),
-            new Vector2(0,1),
-            new Vector2(0,-1)
-        };
-
         public MazeBuilder(GridMap gridMap)
         {
             GridMap = gridMap;
             Random = new Random();
         }
 
-        public List<BuildObject> Build()
+        public void Build(BuilderCallback builderCallback)
         {
             AddCell(GetRandomCell());
 
@@ -41,7 +33,9 @@ namespace Working_title.MapGenerator
                 Cell RandomNeighborCell = GetRandomNeighborCell(CurrentCell);
                 RandomNeighborCell.ParentCell = CurrentCell;
 
-                if (Math.Abs(Vector2.Distance(RandomNeighborCell.Position, CurrentCell.Position)) <= 1)
+                float DistanceToRandomNeighbor = Vector2.Distance(RandomNeighborCell.Position, CurrentCell.Position);
+
+                if (Math.Abs(DistanceToRandomNeighbor) <= 1 && Math.Abs(DistanceToRandomNeighbor) > 0.01f)
                 {
                     CurrentCell.AddDirection(RandomNeighborCell.Position - CurrentCell.Position);
                 }
@@ -56,7 +50,7 @@ namespace Working_title.MapGenerator
                 }
             }
 
-            return Maze.Cast<BuildObject>().ToList();
+            builderCallback(Maze.Cast<BuildObject>().ToList());
         }
 
         private void AddCell(Cell cell)
@@ -91,9 +85,9 @@ namespace Working_title.MapGenerator
             {
                 CurrentDirection = GetRandomDirectionNotTaken(DirectionsTaken);
                 Vector2 NewCellPosition = cell.Position + CurrentDirection;
-                if (GridMap.IsWithinBounds(NewCellPosition) && GridMap[NewCellPosition] is EmptyCell)
+                if (GridMap.IsWithinBounds(NewCellPosition) && GridMap[NewCellPosition] is Empty)
                 {
-                    Cell NewCell = new Cell(NewCellPosition, CurrentDirection, new Size(1,1));
+                    Cell NewCell = new Cell(NewCellPosition, cell.Position - NewCellPosition, new Size(1,1));
                     GridMap[NewCellPosition] = NewCell;
                     return NewCell;
                 }
@@ -106,7 +100,7 @@ namespace Working_title.MapGenerator
 
         private Vector2 GetRandomDirectionNotTaken(List<Vector2> directionsTaken)
         {
-            List<Vector2> DirectionsNotTaken = GetDirectionsNotTaken(Directions, directionsTaken);
+            List<Vector2> DirectionsNotTaken = GetDirectionsNotTaken(GridMap.Directions, directionsTaken);
             if (DirectionsNotTaken.Count > 0)
             {
                 int RandomNumber = Random.Next(0, DirectionsNotTaken.Count);
@@ -118,11 +112,6 @@ namespace Working_title.MapGenerator
         private List<Vector2> GetDirectionsNotTaken(List<Vector2> directions, List<Vector2> directionsTaken)
         {
             return directions.FindAll(direction => !directionsTaken.Contains(direction));
-        }
-
-        private void ConvertMazeToWorldPosition(Size converterSize)
-        {
-            Maze.DoActionOnItems(cell => cell.ConvertToWorldKooridinates(converterSize));
         }
 
       

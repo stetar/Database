@@ -30,9 +30,9 @@ namespace Working_title
 
         }
 
-        public override void Update(float deltaTime)
+        public override void Update(GameTime gameTime)
         {
-            base.Update(deltaTime);
+            base.Update(gameTime);
             CheckCollision();
         }
 

@@ -12,10 +12,8 @@ namespace Working_title.MapGenerator
         private Vector2 UpDirection = new Vector2(0, -1);
         private Vector2 DownDirection = new Vector2(0, 1);
 
-        private List<Vector2> RightRightDirections;
-        private List<Vector2> LeftLeftDirections;
-        private List<Vector2> UpUpDirections;
-        private List<Vector2> DownDownDirections;
+        private List<Vector2> LeftRightDirections;
+        private List<Vector2> DownUpDirections;
         private List<Vector2> UpRightDirections;
         private List<Vector2> UpLeftDirections;
         private List<Vector2> DownLeftDirections;
@@ -27,10 +25,8 @@ namespace Working_title.MapGenerator
 
         public CellFactory()
         {
-            RightRightDirections = new List<Vector2>()  { RightDirection, RightDirection};
-            LeftLeftDirections = new List<Vector2>()    { LeftDirection, LeftDirection  };
-            UpUpDirections = new List<Vector2>()        { UpDirection, UpDirection      };
-            DownDownDirections = new List<Vector2>()    { DownDirection, DownDirection  };
+            LeftRightDirections = new List<Vector2>()   { RightDirection, LeftDirection };
+            DownUpDirections = new List<Vector2>()      { UpDirection, DownDirection    };
             UpRightDirections = new List<Vector2>()     { UpDirection, RightDirection   };
             UpLeftDirections = new List<Vector2>()      { UpDirection, LeftDirection    };
             DownLeftDirections = new List<Vector2>()    { DownDirection, LeftDirection  };
@@ -46,37 +42,35 @@ namespace Working_title.MapGenerator
             CellCreator CellCreator = (CellCreator) creator;
             List<Vector2> CellDirections = CellCreator.Directions;
 
-            if (IsDirectionsEqual(CellDirections, RightRightDirections) ||
-                IsDirectionsEqual(CellDirections, LeftLeftDirections) ||
-                IsMoving(CellDirections, LeftDirection) ||
-                IsMoving(CellDirections, RightDirection))
+            if (IsDirectionsEqual(CellDirections, LeftRightDirections) ||
+                IsMovingInOneDirection(CellDirections, LeftDirection) ||
+                IsMovingInOneDirection(CellDirections, RightDirection))
             {
                 return new RightRightCell(CellCreator.StartPosition,CellCreator.Size);
             }
-            if (IsDirectionsEqual(CellDirections, UpUpDirections) || 
-                IsDirectionsEqual(CellDirections, DownDownDirections) ||
-                IsMoving(CellDirections,LeftDirection) || 
-                IsMoving(CellDirections, RightDirection))
+            if (IsDirectionsEqual(CellDirections, DownUpDirections) ||
+                IsMovingInOneDirection(CellDirections,LeftDirection) || 
+                IsMovingInOneDirection(CellDirections, RightDirection))
             {
                 return new UpUpCell(CellCreator.StartPosition, CellCreator.Size);
             }
-            if (IsDirectionsEqual(CellDirections, UpRightDirections) ||
-                IsDirectionsEqual(CellDirections, LeftDownDirections))
-            {
-                return new UpRightCell(CellCreator.StartPosition, CellCreator.Size);
-            }
-            if (IsDirectionsEqual(CellDirections, UpLeftDirections) ||
-                IsDirectionsEqual(CellDirections, RightDownDirections))
+            if (IsDirectionsOrderEqual(CellDirections, UpLeftDirections) ||
+                IsDirectionsOrderEqual(CellDirections, LeftUpDirections))
             {
                 return new UpLeftCell(CellCreator.StartPosition, CellCreator.Size);
             }
-            if (IsDirectionsEqual(CellDirections, DownLeftDirections) || 
-                IsDirectionsEqual(CellDirections, RightUpDirections))
+            if (IsDirectionsOrderEqual(CellDirections, UpRightDirections) ||
+                IsDirectionsOrderEqual(CellDirections, RightUpDirections))
+            {
+                return new UpRightCell(CellCreator.StartPosition, CellCreator.Size);
+            }
+            if (IsDirectionsOrderEqual(CellDirections, DownLeftDirections) || 
+                IsDirectionsOrderEqual(CellDirections, LeftDownDirections))
             {
                 return new DownLeftCell(CellCreator.StartPosition, CellCreator.Size);
             }
-            if (IsDirectionsEqual(CellDirections, DownRightDirections) ||
-                IsDirectionsEqual(CellDirections, LeftUpDirections))
+            if (IsDirectionsOrderEqual(CellDirections, DownRightDirections) ||
+                IsDirectionsOrderEqual(CellDirections, RightDownDirections))
             {
                 return new DownRightCell(CellCreator.StartPosition, CellCreator.Size);
             }
@@ -84,12 +78,17 @@ namespace Working_title.MapGenerator
             return new EmptyGameObject();
         }
 
-        private bool IsMoving(List<Vector2> directions,Vector2 directionToCheck)
+        private bool IsMovingInOneDirection(List<Vector2> directions,Vector2 directionToCheck)
         {
             return directions.Count == 1 && directions.Contains(directionToCheck);
         }
 
         private bool IsDirectionsEqual(List<Vector2> directions1, List<Vector2> directions2)
+        {
+            return directions1.Except(directions2).ToList().Count <= 0;
+        }
+
+        private bool IsDirectionsOrderEqual(List<Vector2> directions1, List<Vector2> directions2)
         {
             return directions1.SequenceEqual(directions2);
         }

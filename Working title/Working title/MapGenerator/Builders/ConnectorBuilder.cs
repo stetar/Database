@@ -13,15 +13,6 @@ namespace Working_title.MapGenerator
         private List<BuildObject> Connectors = new List<BuildObject>();
         private List<Room> ConnectedRooms = new List<Room>(); 
         private Random Random;  
-        
-
-        private List<Vector2> Directions = new List<Vector2>()
-        {
-            new Vector2(1,0),
-            new Vector2(-1,0),
-            new Vector2(0,1),
-            new Vector2(0,-1)
-        };
 
         public ConnectorBuilder(GridMap gridMap, Size gridSize)
         {
@@ -30,7 +21,7 @@ namespace Working_title.MapGenerator
             Random = new Random();
         }
 
-        public List<BuildObject> Build()
+        public void Build(BuilderCallback builderCallback)
         {
             for (int x = 0; x < GridSize.Width; x++)
             {
@@ -52,12 +43,12 @@ namespace Working_title.MapGenerator
                 }
             }
 
-            return Connectors;
+            builderCallback(Connectors);
         }
 
         private void SetCellToPointToRoom(BuildObject connector)
         {
-            List<BuildObject> BuildObjects = GetBuildObjectsSurroundingPoint(Directions, connector.Position);
+            List<BuildObject> BuildObjects = GetBuildObjectsSurroundingPoint(GridMap.Directions, connector.Position);
             List<Cell> Cells = BuildObjects.FindAll(buildObject => buildObject is Cell).Cast<Cell>().ToList();
             int RandomNumber = Random.Next(0, Cells.Count);
             Cell RandomCell = Cells[RandomNumber];
@@ -85,7 +76,7 @@ namespace Working_title.MapGenerator
 
         private bool IsConnectorPoint(Vector2 position)
         {
-            List<BuildObject> BuildObjects = GetBuildObjectsSurroundingPoint(Directions, position);
+            List<BuildObject> BuildObjects = GetBuildObjectsSurroundingPoint(GridMap.Directions, position);
             int CellCount = BuildObjects.FindAll(buildObject => buildObject is Cell).Count;
             int RoomCount = BuildObjects.FindAll(buildObject => buildObject is Room).Count;
 

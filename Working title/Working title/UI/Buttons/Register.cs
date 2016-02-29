@@ -1,54 +1,45 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Working_title.MapGenerator;
 
 namespace Working_title.UI.Buttons
 {
-    class Register
+    class Register : UiButton
     {
-        Texture2D texture;
-        Vector2 position;
-        Rectangle rectangle;
-        bool down;
+        private bool down;
         public bool RegisterIsClicked;
-        Color colour = new Color(255, 255, 255, 255);
-        public Vector2 size;
+        private Color Colour = new Color(255, 255, 255, 255);
 
-        public Register(Texture2D newTexture, GraphicsDevice graphics)
+        public Register(Vector2 position) : 
+            base(position)
         {
-            texture = newTexture;
-            size = new Vector2(graphics.Viewport.Width / 3, graphics.Viewport.Height / 12);
+            TextureName = "BtnRegister";
+            TextureSize = new Size(Game1.ScreenSize.Width / 3, Game1.ScreenSize.Height / 12);
         }
 
 
-        public void Update(MouseState mouse)
+        protected override void OnMouseStay()
         {
-            rectangle = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
-
-            Rectangle mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
-
-            if (mouseRectangle.Intersects(rectangle))
+            base.OnMouseEnter();
+            if (Colour.A == 255) { down = false; }
+            if (Colour.A == 0) { down = true; }
+            if (down) { Colour.A += 3; }
+            else { Colour.A -= 3; }
+            if (Mouse.LeftButton == ButtonState.Pressed)
             {
-                if (colour.A == 255) down = false;
-                if (colour.A == 0) down = true;
-                if (down) colour.A += 3; else colour.A -= 3;
-                if (mouse.LeftButton == ButtonState.Pressed) RegisterIsClicked = true;
+                RegisterIsClicked = true;
             }
-            else if (colour.A < 255)
+        }
+
+        protected override void OnMouseExit()
+        {
+            base.OnMouseExit();
+            if (Colour.A < 255)
             {
-                colour.A += 3;
+                Colour.A += 3;
                 RegisterIsClicked = false;
             }
-        }
-
-        public void SetPosition(Vector2 newPosition)
-        {
-            position = newPosition;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, rectangle, colour);
         }
     }
 }
