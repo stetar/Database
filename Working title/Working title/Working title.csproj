@@ -77,8 +77,8 @@
     <Compile Include="MapSpriteClasses\EmptyGameObject.cs" />
     <Compile Include="MapSpriteClasses\RoomSprite.cs" />
     <Compile Include="MapSpriteClasses\WallSprite.cs" />
-    <Compile Include="MoveableClasses\KeyChecker.cs" />
     <Compile Include="MoveableClasses\GridObjectMover.cs" />
+    <Compile Include="MoveableClasses\KeyChecker.cs" />
     <Compile Include="MoveableClasses\KeyMoveInput.cs" />
     <Compile Include="MoveableClasses\KeyState.cs" />
     <Compile Include="MoveableClasses\Player.cs" />
