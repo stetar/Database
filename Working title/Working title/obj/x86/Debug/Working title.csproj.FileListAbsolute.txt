@@ -26,3 +26,7 @@ C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working
 C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\obj\x86\Debug\Working title.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\Windows\Debug\Content\btnAbout.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\Windows\Debug\Content\btnCredits.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\Windows\Debug\Content\btnExit.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\Windows\Debug\Content\btnStartGame.png

@@ -2,29 +2,34 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Working_title.UI.Buttons;
+using Working_title.Forms;
+using System.Data.SQLite;
 
 namespace Working_title
 {
-
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private LoginOk btnLoginOk;
-        private Register btnRegister;
+        private StartGame btnStart;
+        private AboutTheGame btnAbout;
+        private Credit btnCredits;
+        private ExitGame btnExit;
         int screenWidth = 800;
         int screenHeight = 600;
 
-        enum GameState
+        public enum GameState
         {
             Login,      // Login, Password, OK, Register 
             Register,   // Hvis register er valgt : Wished login, Wished password, Ok, --> Gem database --> Send til MainMenu 
             MainMenu,   // Start Game, About the game, Credits, Exit Game
+            About,      // Om spillet, controls, historie etc
+            Credits,    // Om os udviklerne af spillet
             Playing,    // Spillogik her
             Closing,    // Gemmer alt data til databaserne så progression ikke mistes.
         }
 
-        GameState CurrentGameState = GameState.Login;
+       public static GameState CurrentGameState = GameState.Login;
 
         public Game1()
         {
@@ -35,15 +40,12 @@ namespace Working_title
 
         protected override void Initialize()
         {
-
-
             base.Initialize();
         }
 
 
         protected override void LoadContent()
         {
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             graphics.PreferredBackBufferWidth = screenWidth;
@@ -52,11 +54,18 @@ namespace Working_title
             graphics.ApplyChanges();
             IsMouseVisible = true;
 
-            btnLoginOk = new LoginOk(Content.Load<Texture2D>("BtnOk"), graphics.GraphicsDevice);
-            btnLoginOk.SetPosition(new Vector2(475, 500));
+            btnStart = new StartGame(Content.Load<Texture2D>("BtnStartGame"), graphics.GraphicsDevice);
+            btnStart.SetPosition(new Vector2(275, 100));
 
-            btnRegister= new Register(Content.Load<Texture2D>("BtnRegister"), graphics.GraphicsDevice);
-            btnRegister.SetPosition(new Vector2(175, 500));
+            btnAbout = new AboutTheGame(Content.Load<Texture2D>("BtnAbout"), graphics.GraphicsDevice);
+            btnAbout.SetPosition(new Vector2(275, 200));
+
+            btnCredits = new Credit(Content.Load<Texture2D>("BtnCredits"), graphics.GraphicsDevice);
+            btnCredits.SetPosition(new Vector2(275, 300));
+
+            btnExit = new ExitGame(Content.Load<Texture2D>("BtnExit"), graphics.GraphicsDevice);
+            btnExit.SetPosition(new Vector2(275, 400));
+
         }
 
 
@@ -77,28 +86,42 @@ namespace Working_title
             switch (CurrentGameState)
             {
                 case GameState.Login:
-                    if (btnLoginOk.LoginOkIsClicked == true) CurrentGameState = GameState.MainMenu;
-                    if (btnRegister.RegisterIsClicked == true) CurrentGameState = GameState.Register;
-
-                    btnLoginOk.Update(mouseState);
-                    btnRegister.Update(mouseState);
+                    //WinForms Inputboxes
+                    string inputValueLogi = LoginForm.ShowDialog();
                     break;
 
                 case GameState.Register:
+                    //WinForms Inputboxes
+                    string inputValueRegi = RegisterForm.ShowDialog();
+                    
                     break;
 
                 case GameState.MainMenu:
+
+                    if (btnStart.StartIsClicked == true) CurrentGameState = GameState.Playing;
+                    if (btnAbout.AboutIsClicked == true) CurrentGameState = GameState.About;
+                    if (btnCredits.CreditsIsClicked == true) CurrentGameState = GameState.Credits;
+                    if (btnExit.ExitIsClicked == true) CurrentGameState = GameState.Closing;
+
+                    btnStart.Update(mouseState);
+                    btnAbout.Update(mouseState);
+                    btnCredits.Update(mouseState);
+                    btnExit.Update(mouseState);
+                    break;
+
+                case GameState.About:
+                    break;
+
+                case GameState.Credits:
                     break;
 
                 case GameState.Playing:
                     break;
 
                 case GameState.Closing:
+                    this.Exit();
                     break;
             }
-
-
-
             base.Update(gameTime);
         }
 
@@ -106,21 +129,31 @@ namespace Working_title
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
             switch (CurrentGameState)
             {
                 case GameState.Login:
-                    spriteBatch.Draw(Content.Load<Texture2D>("loginBg"), new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
-                    btnLoginOk.Draw(spriteBatch);
-                    btnRegister.Draw(spriteBatch);
                     break;
 
                 case GameState.Register:
                     break;
 
                 case GameState.MainMenu:
+                    spriteBatch.Draw(Content.Load<Texture2D>("loginBg"), new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+
+                    btnStart.Draw(spriteBatch);
+                    btnAbout.Draw(spriteBatch);
+                    btnCredits.Draw(spriteBatch);
+                    btnExit.Draw(spriteBatch);
+                    break;
+
+                case GameState.About:
+                    spriteBatch.Draw(Content.Load<Texture2D>("loginBg"), new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+                    break;
+
+                case GameState.Credits:
+                    spriteBatch.Draw(Content.Load<Texture2D>("loginBg"), new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
                     break;
 
                 case GameState.Playing:
