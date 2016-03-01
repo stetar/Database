@@ -10,29 +10,25 @@ namespace Working_title.Screens
 {
     public class MapScreen : Screen
     {
-        private MapBuilder MapBuilder;
-        private Player Player;
 
         public override void Init()
         {
-            MapBuilder = new MapBuilder(Game1.ScreenSize);
-            Player = new Player(Vector2.Zero, MapBuilder.GridMap);
-            AddObjectToLoadingList(Player);
+
         }
 
         public override void Load()
         {
+            MapBuilder MapBuilder = Game1.MapBuilder;
+            AddPlayer(MapBuilder.GridMap);
             base.Load();
-            Thread MapThread = new Thread(() => MapBuilder.Build(OnMapFinnished));
-            MapThread.Start();
         }
 
-        private void OnMapFinnished(List<BuildObject> objectsInMap)
+        public void AddPlayer(GridMap gridmap)
         {
-            GridMap GridMap = MapBuilder.GridMap;
-            Cell RandomCell = GridMap.GetRandomCell();
+            Cell RandomCell = gridmap.GetRandomCell();
             Vector2 PlayerSpawnPosition = RandomCell.Position;
-            Player.Position = PlayerSpawnPosition;
+            AddObjectToLoadingList(new Player(PlayerSpawnPosition, gridmap));
         }
+
     }
 }

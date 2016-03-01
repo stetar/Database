@@ -7,6 +7,7 @@ namespace Working_title.MapGenerator
     {
         public int Height;
         public int Width;
+        private static Size RandomSize = new Size(0, 0);
 
         public Size(int width, int height)
         {
@@ -50,14 +51,20 @@ namespace Working_title.MapGenerator
             return Height == 0 && Width == 0;
         }
 
-        public static Size GetRandomSize(Size minSize, Size maxSize)
+        public static Size GetRandomSize(Size minSize, Size maxSize,Random random)
         {
-            Random Random = new Random();
-            int RandomWidth = Random.Next(minSize.Width, maxSize.Width);
-            int RandomHeight = Random.Next(minSize.Height, maxSize.Height);
-
-            return new Size(RandomWidth, RandomHeight);
+            int RandomWidth = random.Next(minSize.Width, maxSize.Width);
+            int RandomHeight = random.Next(minSize.Height, maxSize.Height);
+            RandomSize.Width = RandomWidth;
+            RandomSize.Height = RandomHeight;
+            
+            return (Size)RandomSize.MemberwiseClone();
         }
 
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

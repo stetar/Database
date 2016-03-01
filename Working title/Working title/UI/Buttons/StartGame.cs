@@ -18,7 +18,7 @@ namespace Working_title.UI.Buttons
             base.OnMouseStay();
             if (Mouse.LeftButton == ButtonState.Pressed)
             {
-                Game1.CurrentGameState = GameState.Playing;
+                Game1.CurrentGameState = GameState.MapLoading;
             }
         }
     }

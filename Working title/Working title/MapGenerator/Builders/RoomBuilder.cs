@@ -18,14 +18,15 @@ namespace Working_title.MapGenerator
 
         private List<Room> Rooms = new List<Room>();
         private Size GridMapSize;
-        private Size CellSize;
         private GridMap GridMap;
+        private Random Random;
          
 
         public RoomBuilder(Size gridMapSize, GridMap gridMap)
         {
             GridMapSize = gridMapSize;
             GridMap = gridMap;
+            Random = new Random();
         }
 
         public void Build(BuilderCallback builderCallback)
@@ -34,8 +35,8 @@ namespace Working_title.MapGenerator
 
             for (int i = 0; i < NumberOfRoomTries; i++)
             {
-                Size RandomSize = Size.GetRandomSize(RoomMinSize, RoomMaxSize);
-                Vector2 RandomPosition = Size.GetRandomSize(new Size(0, 0), GridMapSize).ToVector2();
+                Size RandomSize = Size.GetRandomSize(RoomMinSize, RoomMaxSize, Random);
+                Vector2 RandomPosition = Size.GetRandomSize(new Size(0, 0), GridMapSize, Random).ToVector2();
                 Rectangle RoomCollisionBox = new Rectangle(RandomPosition.ToPoint(), RandomSize.ToPoint());
                 Room NewRoom = new Room(RandomPosition, RandomSize, RoomCollisionBox);
 

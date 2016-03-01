@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace Working_title.MapGenerator
 {
-    public class GridMap
+    public class GridMap 
     {
         public Size Size;
         public List<Vector2> Directions = new List<Vector2>()
@@ -24,18 +25,30 @@ namespace Working_title.MapGenerator
         {
             get
             {
-                MyObjectsAsList.Clear();
+                List<BuildObject> ObjectsInListClone = new List<BuildObject>();
                 for (int x = 0; x < Size.Width; x++)
                 {
                     for (int y = 0; y < Size.Height; y++)
                     {
                         BuildObject BuildObject = Map[x, y];
-                        MyObjectsAsList.Add(BuildObject);
+                        ObjectsInListClone.Add(BuildObject);
                     }
                 }
-                return MyObjectsAsList;
+                return ObjectsInListClone;
             }
         } 
+
+        public int Length
+        {
+            get { return MyObjectsAsList.FindAll(objectInList => objectInList is Cell).Count; }
+        }
+
+        public Cell GetLastCell()
+        {
+            List<BuildObject> Cells = MyObjectsAsList.FindAll(objectInList => objectInList is Cell);
+            return (Cell)Cells[Cells.Count - 1];
+        }
+
 
         public GridMap(Size gridMapSize,Size cellsize)
         {
@@ -83,6 +96,7 @@ namespace Working_title.MapGenerator
             return RandomCell;
         }
 
+
         public bool IsWalkable(Vector2 position)
         {
             if (IsWithinBounds(position))
@@ -116,5 +130,9 @@ namespace Working_title.MapGenerator
         }
 
 
+        public object CleanClone()
+        {
+            return new GridMap(Size,CellSize);
+        }
     }
 }

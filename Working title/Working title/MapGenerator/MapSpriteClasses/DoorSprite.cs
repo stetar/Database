@@ -4,7 +4,7 @@ using Working_title.MapGenerator;
 
 namespace Working_title
 {
-    public class DoorSprite : CollidingSprite
+    public class DoorSprite : NonCollidingSprite
     {
         public DoorSprite(Vector2 position, Size size) :
             base(position)

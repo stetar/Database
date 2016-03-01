@@ -10,8 +10,6 @@ namespace Working_title.Setup
         private const int ScreenWidth = 800;
         private const int ScreenHeight = 600;
 
-        private GraphicsDeviceManager Graphics;
-
         public override void Init(Game1 game1)
         {
             base.Init(game1);

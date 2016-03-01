@@ -7,7 +7,6 @@ namespace Working_title.UI.Buttons
 {
     class LoginOk : UiButton
     {
-        Rectangle rectangle;
         bool down;
         public bool LoginOkIsClicked;
         Color colour = new Color(255, 255, 255, 255);

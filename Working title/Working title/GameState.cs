@@ -7,6 +7,7 @@
         MainMenu,   // Start Game, About the game, Credits, Exit Game
         Playing,    // Spillogik her
         Closing,    // Gemmer alt data til databaserne så progression ikke mistes.
+        MapLoading, 
         None        // No state chosen
     }
 }

@@ -11,5 +11,13 @@ namespace Working_title
             TextureSize = size;
             TextureName = textureName;
         }
+
+        public NonCollidingStaticSprite(Vector2 position, Size size, string textureName,float layerDepth) :
+            base(position)
+        {
+            TextureSize = size;
+            TextureName = textureName;
+            LayerDepth = layerDepth;
+        }
     }
 }

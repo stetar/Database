@@ -38,9 +38,11 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Camera2D.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="GameWorld\Screens\MapLoadingScreen.cs" />
     <Compile Include="GameWorld\Screens\LoginScreen.cs" />
     <Compile Include="GameWorld\Screens\MapScreen.cs" />
     <Compile Include="GameWorld\Setup\DebugSetup.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="MapGenerator\Cell.cs" />
     <Compile Include="MapGenerator\DeadEndRemover.cs" />
     <Compile Include="MapGenerator\Empty.cs" />
+    <Compile Include="MapGenerator\Enemy.cs" />
     <Compile Include="MapGenerator\Wall.cs" />
     <Compile Include="MapGenerator\Factories\CellCreator.cs" />
     <Compile Include="MapGenerator\Factories\CellFactory.cs" />
@@ -65,18 +68,18 @@
     <Compile Include="MapGenerator\GridMap.cs" />
     <Compile Include="MapGenerator\Builders\MazeBuilder.cs" />
     <Compile Include="MapGenerator\Room.cs" />
-    <Compile Include="MapSpriteClasses\CellSprite.cs" />
-    <Compile Include="MapSpriteClasses\Cells\DownLeftCell.cs" />
-    <Compile Include="MapSpriteClasses\Cells\DownRightCell.cs" />
-    <Compile Include="MapSpriteClasses\Cells\EmptyCell.cs" />
-    <Compile Include="MapSpriteClasses\Cells\RightRightCell.cs" />
-    <Compile Include="MapSpriteClasses\Cells\UpLeftCell.cs" />
-    <Compile Include="MapSpriteClasses\Cells\UpRightCell.cs" />
-    <Compile Include="MapSpriteClasses\Cells\UpUpCell.cs" />
-    <Compile Include="MapSpriteClasses\DoorSprite.cs" />
-    <Compile Include="MapSpriteClasses\EmptyGameObject.cs" />
-    <Compile Include="MapSpriteClasses\RoomSprite.cs" />
-    <Compile Include="MapSpriteClasses\WallSprite.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\CellSprite.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\Cells\DownLeftCell.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\Cells\DownRightCell.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\Cells\EmptyCell.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\Cells\RightRightCell.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\Cells\UpLeftCell.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\Cells\UpRightCell.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\Cells\UpUpCell.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\DoorSprite.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\EmptyGameObject.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\RoomSprite.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\WallSprite.cs" />
     <Compile Include="MoveableClasses\GridObjectMover.cs" />
     <Compile Include="MoveableClasses\KeyChecker.cs" />
     <Compile Include="MoveableClasses\KeyMoveInput.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="StrutureObjects\NonCollidingSprite.cs" />
     <Compile Include="StrutureObjects\Sprite.cs" />
     <Compile Include="GameWorld\Setup\WorldSetup.cs" />
+    <Compile Include="Utillity\LoadingBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
