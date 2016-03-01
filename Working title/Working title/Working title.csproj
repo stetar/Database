@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{01E319A2-4BFF-443B-94CF-A1C19FC827AB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Working_title</RootNamespace>
+    <AssemblyName>Working title</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MonoGamePlatform>Windows</MonoGamePlatform>
+    <MonoGameContentBuilderExe>
+    </MonoGameContentBuilderExe>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Windows\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Windows\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="GameWorld\Screens\LoginScreen.cs" />
+    <Compile Include="GameWorld\Screens\MapScreen.cs" />
+    <Compile Include="GameWorld\Setup\DebugSetup.cs" />
+    <Compile Include="GameWorld\Setup\GeneralSetup.cs" />
+    <Compile Include="GameWorld\Setup\LoginSetup.cs" />
+    <Compile Include="GameWorld\Setup\MapSetup.cs" />
+    <Compile Include="GameWorld\Setup\PlayerSetup.cs" />
+    <Compile Include="GameWorld\Screens\Screen.cs" />
+    <Compile Include="MapGenerator\Builders\BuildObject.cs" />
+    <Compile Include="MapGenerator\Cell.cs" />
+    <Compile Include="MapGenerator\DeadEndRemover.cs" />
+    <Compile Include="MapGenerator\Empty.cs" />
+    <Compile Include="MapGenerator\Wall.cs" />
+    <Compile Include="MapGenerator\Factories\CellCreator.cs" />
+    <Compile Include="MapGenerator\Factories\CellFactory.cs" />
+    <Compile Include="MapGenerator\Builders\ConnectorBuilder.cs" />
+    <Compile Include="MapGenerator\Factories\Creator.cs" />
+    <Compile Include="MapGenerator\Door.cs" />
+    <Compile Include="MapGenerator\Factories\Factory.cs" />
+    <Compile Include="MapGenerator\Factories\MapCreator.cs" />
+    <Compile Include="MapGenerator\Factories\MapFactory.cs" />
+    <Compile Include="MapGenerator\GridMap.cs" />
+    <Compile Include="MapGenerator\Builders\MazeBuilder.cs" />
+    <Compile Include="MapGenerator\Room.cs" />
+    <Compile Include="MapSpriteClasses\CellSprite.cs" />
+    <Compile Include="MapSpriteClasses\Cells\DownLeftCell.cs" />
+    <Compile Include="MapSpriteClasses\Cells\DownRightCell.cs" />
+    <Compile Include="MapSpriteClasses\Cells\EmptyCell.cs" />
+    <Compile Include="MapSpriteClasses\Cells\RightRightCell.cs" />
+    <Compile Include="MapSpriteClasses\Cells\UpLeftCell.cs" />
+    <Compile Include="MapSpriteClasses\Cells\UpRightCell.cs" />
+    <Compile Include="MapSpriteClasses\Cells\UpUpCell.cs" />
+    <Compile Include="MapSpriteClasses\DoorSprite.cs" />
+    <Compile Include="MapSpriteClasses\EmptyGameObject.cs" />
+    <Compile Include="MapSpriteClasses\RoomSprite.cs" />
+    <Compile Include="MapSpriteClasses\WallSprite.cs" />
+    <Compile Include="MoveableClasses\GridObjectMover.cs" />
+    <Compile Include="MoveableClasses\KeyChecker.cs" />
+    <Compile Include="MoveableClasses\KeyMoveInput.cs" />
+    <Compile Include="MoveableClasses\KeyState.cs" />
+    <Compile Include="MoveableClasses\Player.cs" />
+    <Compile Include="StrutureObjects\CollidingSprite.cs" />
+    <Compile Include="StrutureObjects\GameObject.cs" />
+    <Compile Include="Limit.cs" />
+    <Compile Include="MapGenerator\Builders\Builder.cs" />
+    <Compile Include="MapGenerator\Builders\MapBuilder.cs" />
+    <Compile Include="MapGenerator\Size.cs" />
+    <Compile Include="MapGenerator\Builders\RoomBuilder.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StrutureObjects\NonCollidingStaticSprite.cs" />
+    <Compile Include="UI\Buttons\StartGame.cs" />
+    <Compile Include="UI\Buttons\UiButton.cs" />
+    <Compile Include="UI\Buttons\UIButtonState.cs" />
+    <Compile Include="UI\Buttons\LoginOk.cs" />
+    <Compile Include="UI\Buttons\Register.cs" />
+    <Compile Include="UI\InputFields\InputLogin.cs" />
+    <Compile Include="UI\InputFields\InputPassword.cs" />
+    <Compile Include="UI\InputFields\WishedLogin.cs" />
+    <Compile Include="UI\InputFields\WishedPassword.cs" />
+    <Compile Include="StrutureObjects\NonCollidingSprite.cs" />
+    <Compile Include="StrutureObjects\Sprite.cs" />
+    <Compile Include="GameWorld\Setup\WorldSetup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Blue.jpg" />
+    <Content Include="Content\BtnOk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\BtnRegister.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Images\Black.png" />
+    <Content Include="Content\Images\Blue.jpg" />
+    <Content Include="Content\Images\Downleft.png" />
+    <Content Include="Content\Images\DownRight.png" />
+    <Content Include="Content\Images\green.png" />
+    <Content Include="Content\Images\player.png" />
+    <Content Include="Content\Images\RightRight.png" />
+    <Content Include="Content\Images\StartGame.png" />
+    <Content Include="Content\Images\UpLeft.png" />
+    <Content Include="Content\Images\UpRight.png" />
+    <Content Include="Content\Images\UpUp.png" />
+    <Content Include="Content\Images\yellow.png" />
+    <Content Include="Content\loginBg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </MonoGameContentReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Fonts\StandardFont.spritefont" />
+    <None Include="Content\obj\.mgcontent" />
+    <None Include="Content\obj\Blue.mgcontent" />
+    <None Include="Content\obj\Windows\.mgcontent" />
+    <None Include="Content\obj\Windows\Fonts\StandardFont.mgcontent" />
+    <None Include="Content\obj\Windows\Images\Black.mgcontent" />
+    <None Include="Content\obj\Windows\Images\Blue.mgcontent" />
+    <None Include="Content\obj\Windows\Images\DownLeft.mgcontent" />
+    <None Include="Content\obj\Windows\Images\DownRight.mgcontent" />
+    <None Include="Content\obj\Windows\Images\green.mgcontent" />
+    <None Include="Content\obj\Windows\Images\RightRight.mgcontent" />
+    <None Include="Content\obj\Windows\Images\UpLeft.mgcontent" />
+    <None Include="Content\obj\Windows\Images\UpRight.mgcontent" />
+    <None Include="Content\obj\Windows\Images\UpUp.mgcontent" />
+    <None Include="Content\obj\Windows\Images\yellow.mgcontent" />
+    <None Include="Content\StandardFont.spritefont" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
