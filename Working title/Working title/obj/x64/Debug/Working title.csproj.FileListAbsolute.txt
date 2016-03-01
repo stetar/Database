@@ -1,0 +1,35 @@
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\obj\x64\Debug\Working title.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Working title.exe.config
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Content\loginBg.jpg
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Content\btnAbout.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Content\btnCredits.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Content\btnExit.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Content\BtnOk.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Content\BtnRegister.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Content\btnStartGame.png
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Working title.exe
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\Working title.pdb
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\MonoGame.Framework.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\System.Data.SQLite.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.XAudio2.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.Direct3D11.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.DXGI.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.Direct2D1.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.XInput.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.RawInput.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.Direct3D9.dll
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\MonoGame.Framework.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\System.Data.SQLite.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.XAudio2.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.Direct3D11.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.DXGI.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.Direct2D1.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.XInput.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.RawInput.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\bin\x64\Debug\SharpDX.Direct3D9.xml
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\obj\x64\Debug\Working title.exe
+C:\Users\Administrator\Desktop\Monogame projekt\SourceCode\Working title\Working title\obj\x64\Debug\Working title.pdb

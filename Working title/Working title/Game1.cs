@@ -1,16 +1,35 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Working_title.UI.Buttons;
+using Working_title.Forms;
+using System.Data.SQLite;
 
 namespace Working_title
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private StartGame btnStart;
+        private AboutTheGame btnAbout;
+        private Credit btnCredits;
+        private ExitGame btnExit;
+        int screenWidth = 800;
+        int screenHeight = 600;
+
+        public enum GameState
+        {
+            Login,      // Login, Password, OK, Register 
+            Register,   // Hvis register er valgt : Wished login, Wished password, Ok, --> Gem database --> Send til MainMenu 
+            MainMenu,   // Start Game, About the game, Credits, Exit Game
+            About,      // Om spillet, controls, historie etc
+            Credits,    // Om os udviklerne af spillet
+            Playing,    // Spillogik her
+            Closing,    // Gemmer alt data til databaserne så progression ikke mistes.
+        }
+
+       public static GameState CurrentGameState = GameState.Login;
 
         public Game1()
         {
@@ -18,64 +37,134 @@ namespace Working_title
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
+
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.PreferredBackBufferHeight = screenHeight;
+
+            graphics.ApplyChanges();
+            IsMouseVisible = true;
+
+            btnStart = new StartGame(Content.Load<Texture2D>("BtnStartGame"), graphics.GraphicsDevice);
+            btnStart.SetPosition(new Vector2(275, 100));
+
+            btnAbout = new AboutTheGame(Content.Load<Texture2D>("BtnAbout"), graphics.GraphicsDevice);
+            btnAbout.SetPosition(new Vector2(275, 200));
+
+            btnCredits = new Credit(Content.Load<Texture2D>("BtnCredits"), graphics.GraphicsDevice);
+            btnCredits.SetPosition(new Vector2(275, 300));
+
+            btnExit = new ExitGame(Content.Load<Texture2D>("BtnExit"), graphics.GraphicsDevice);
+            btnExit.SetPosition(new Vector2(275, 400));
+
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
+
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
+
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            MouseState mouseState = Mouse.GetState();
 
+            switch (CurrentGameState)
+            {
+                case GameState.Login:
+                    //WinForms Inputboxes
+                    string inputValueLogi = LoginForm.ShowDialog();
+                    break;
+
+                case GameState.Register:
+                    //WinForms Inputboxes
+                    string inputValueRegi = RegisterForm.ShowDialog();
+                    
+                    break;
+
+                case GameState.MainMenu:
+
+                    if (btnStart.StartIsClicked == true) CurrentGameState = GameState.Playing;
+                    if (btnAbout.AboutIsClicked == true) CurrentGameState = GameState.About;
+                    if (btnCredits.CreditsIsClicked == true) CurrentGameState = GameState.Credits;
+                    if (btnExit.ExitIsClicked == true) CurrentGameState = GameState.Closing;
+
+                    btnStart.Update(mouseState);
+                    btnAbout.Update(mouseState);
+                    btnCredits.Update(mouseState);
+                    btnExit.Update(mouseState);
+                    break;
+
+                case GameState.About:
+                    break;
+
+                case GameState.Credits:
+                    break;
+
+                case GameState.Playing:
+                    break;
+
+                case GameState.Closing:
+                    this.Exit();
+                    break;
+            }
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
+
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            switch (CurrentGameState)
+            {
+                case GameState.Login:
+                    break;
+
+                case GameState.Register:
+                    break;
+
+                case GameState.MainMenu:
+                    spriteBatch.Draw(Content.Load<Texture2D>("loginBg"), new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+
+                    btnStart.Draw(spriteBatch);
+                    btnAbout.Draw(spriteBatch);
+                    btnCredits.Draw(spriteBatch);
+                    btnExit.Draw(spriteBatch);
+                    break;
+
+                case GameState.About:
+                    spriteBatch.Draw(Content.Load<Texture2D>("loginBg"), new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+                    break;
+
+                case GameState.Credits:
+                    spriteBatch.Draw(Content.Load<Texture2D>("loginBg"), new Rectangle(0, 0, screenWidth, screenHeight), Color.White);
+                    break;
+
+                case GameState.Playing:
+                    break;
+
+                case GameState.Closing:
+                    this.Exit();
+                    break;
+            }
+            spriteBatch.End();
+
 
             base.Draw(gameTime);
         }
