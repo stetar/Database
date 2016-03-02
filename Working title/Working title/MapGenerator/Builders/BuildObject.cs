@@ -21,5 +21,15 @@ namespace Working_title.MapGenerator
         {
             Size *= conververSize;
         }
+
+        public virtual void Entered()
+        {
+            
+        }
+
+        public virtual  bool IsWalkable()
+        {
+            return false;
+        }
     }
 }

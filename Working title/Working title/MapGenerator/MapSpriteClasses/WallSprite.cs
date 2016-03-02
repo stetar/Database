@@ -3,7 +3,7 @@ using Working_title.MapGenerator;
 
 namespace Working_title
 {
-    public class WallSprite : CollidingSprite
+    public class WallSprite : NonCollidingSprite
     {
         public WallSprite(Vector2 position, Size size) :
             base(position)

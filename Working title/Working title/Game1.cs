@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using LearningMonoGameGame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using The_RPG_thread_game.Utillity;
 using Working_title.UI.Buttons;
 using Working_title.Cells;
+using Working_title.Forms;
 using Working_title.MapGenerator;
 using Working_title.MoveableClasses;
 using Working_title.Screens;
@@ -18,12 +20,14 @@ namespace Working_title
 
     public class Game1 : Game
     {
-
-        public static GameState CurrentGameState = GameState.Login;
+        // TODO Move to seperate class(es) / refactoring.
+        public static GameState CurrentGameState = GameState.MainMenu;
         public static List<GameObject> Objects = new List<GameObject>();
         public static List<CollidingSprite> CollidingSprites = new List<CollidingSprite>();
         public static Dictionary<string,Texture2D> Textures = new Dictionary<string, Texture2D>();
         public static Dictionary<string,SpriteFont> SpriteFonts = new Dictionary<string, SpriteFont>();
+        public static Camera2D Camera;
+        public static MapBuilder MapBuilder;
 
         private static GraphicsDeviceManager Graphics;
         private static List<GameObject> ObjectsToAddInNextCycle = new List<GameObject>();
@@ -35,7 +39,7 @@ namespace Working_title
         private List<WorldSetup> WorldSetups = new List<WorldSetup>();
         private List<Screen> Screens = new List<Screen>();
         private Screen CurrentScreen;
-        
+
 
         public static Size ScreenSize
         {
@@ -68,21 +72,23 @@ namespace Working_title
             base.Initialize();
             WorldSetups.DoActionOnItems(setup => setup.Init());
             Screens.DoActionOnItems(screen => screen.Init());
+            Camera = new Camera2D(GraphicsDevice.Viewport);
         }
 
         private void AddWorldSetups()
         {
             WorldSetups.Add(new DebugSetup());
             WorldSetups.Add(new GeneralSetup());
-            WorldSetups.Add(new LoginSetup());
+            WorldSetups.Add(new MainMenuSetup());
             WorldSetups.Add(new MapSetup());
             WorldSetups.Add(new PlayerSetup());
         }
 
         private void AddScreens()
         {
-            Screens.Add(new LoginScreen());
+            Screens.Add(new MainMenuScreen());
             Screens.Add(new MapScreen());
+            Screens.Add(new MapLoadingScreen());
         }
 
         /// <summary>
@@ -131,21 +137,19 @@ namespace Working_title
         {
             switch (gameState)
             {
-                case GameState.Login:
-                    CurrentScreen = Screens.Find(screen => screen is LoginScreen);
-                    break;
-
-                case GameState.Register:
-                    break;
-
                 case GameState.MainMenu:
+                    CurrentScreen = Screens.Find(screen => screen is MainMenuScreen);
                     break;
 
                 case GameState.Playing:
                     CurrentScreen = Screens.Find(screen => screen is MapScreen);
                     break;
+                case GameState.MapLoading:
+                    CurrentScreen = Screens.Find(screen => screen is MapLoadingScreen);
+                    break;
 
                 case GameState.Closing:
+                    Exit();
                     break;
             }
         }
@@ -169,13 +173,14 @@ namespace Working_title
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SpriteBatch.Begin(SpriteSortMode.FrontToBack);
+            var ViewMatrix = Camera.GetViewMatrix();
+
+            SpriteBatch.Begin(SpriteSortMode.FrontToBack, transformMatrix: ViewMatrix);
             DrawSprites(SpriteBatch);
             SpriteBatch.End();
             
             base.Draw(gameTime);
         }
-
 
         private void DrawSprites(SpriteBatch spriteBatch)
         {

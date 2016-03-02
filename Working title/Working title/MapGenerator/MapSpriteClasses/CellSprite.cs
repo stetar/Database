@@ -4,7 +4,7 @@ using Working_title.MapGenerator;
 
 namespace Working_title
 {
-    public class CellSprite : CollidingSprite
+    public class CellSprite : NonCollidingSprite
     {
         private Vector2 DirectionCommingFrom;
         private Vector2 DirectionMovingTo;

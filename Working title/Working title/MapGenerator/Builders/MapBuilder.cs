@@ -7,6 +7,8 @@ namespace Working_title.MapGenerator
 {
     public class MapBuilder : Builder
     {
+        public bool DoneBuildindMap;
+
         private readonly Size CellSize = new Size(30, 30);
 
         private Size MapSize;
@@ -27,7 +29,7 @@ namespace Working_title.MapGenerator
             CellFactory = new CellFactory();
             MapFactory = new MapFactory();
             MapSize = mapSize;
-            MyGridMap = new GridMap(MapSize / CellSize,CellSize);
+            MyGridMap = new GridMap(MapSize,CellSize);
             RoomBuilder = new RoomBuilder(MyGridMap.Size, MyGridMap);
             MazeBuilder = new MazeBuilder(MyGridMap);
             ConnectorBuilder = new ConnectorBuilder(MyGridMap, MyGridMap.Size);
@@ -37,18 +39,22 @@ namespace Working_title.MapGenerator
 
         public void Build(BuilderCallback builderCallback)
         {
-            RoomBuilder.Build(delegate { });
-            MazeBuilder.Build(delegate { });
-            ConnectorBuilder.Build(delegate { });
+            RoomBuilder.Build(builderCallback);
+            MazeBuilder.Build(builderCallback);
+            ConnectorBuilder.Build(builderCallback);
             DeadEndRemover.Start();
 
+            DoneBuildindMap = true;
+            builderCallback(MyGridMap.ObjectsAsList);
+        }
+
+        public void CreateObjects()
+        {
             foreach (var BuildObject in MyGridMap.ObjectsAsList)
             {
                 MapCreator = new MapCreator(MapFactory, BuildObject, CellSize, CellFactory);
                 Game1.AddObjectInNextCycle(MapCreator.CreateObject());
             }
-
-            builderCallback(MyGridMap.ObjectsAsList);
         }
     }
 }

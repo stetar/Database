@@ -7,7 +7,7 @@ namespace Working_title.MapGenerator
 {
     public class Room : BuildObject
     {
-
+        public bool EnteredRoom;
         public Rectangle CollisionBox;
 
         public Room(Vector2 position,Size size, Rectangle collisionBox) :
@@ -33,10 +33,9 @@ namespace Working_title.MapGenerator
             return RoomPositions;
         }
 
-
-
-
-
-
+        public override bool IsWalkable()
+        {
+            return EnteredRoom;
+        }
     }
 }

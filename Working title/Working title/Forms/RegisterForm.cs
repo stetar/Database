@@ -15,7 +15,8 @@ namespace Working_title.Forms
                 Height = 600,
                 StartPosition = FormStartPosition.Manual,
                 Location = new System.Drawing.Point(100, 100),
-                BackgroundImage = Image.FromFile(@"Content/loginBg.jpg")
+                BackgroundImage = Image.FromFile(@"Content/loginBg.jpg"),
+                BackgroundImageLayout = ImageLayout.Stretch
             };
 
             TextBox textBox1 = new TextBox() { Left = 350, Top = 150, Width = 200 };
@@ -48,11 +49,13 @@ namespace Working_title.Forms
 
         okCheck.Click += (sender, e) =>
             {
-
                 string checkingWishedName = textBox1.Text;
                 string checkingWishedPassword = textBox2.Text;
 
-                loginDBManager.Register(checkingWishedName, checkingWishedPassword);
+                if (loginDBManager.Register(checkingWishedName, checkingWishedPassword))
+                {
+                    Game1.CurrentGameState = GameState.MainMenu;
+                }
 
             };
             return input.ShowDialog() == DialogResult.OK ? textBox1.Text : ""; 

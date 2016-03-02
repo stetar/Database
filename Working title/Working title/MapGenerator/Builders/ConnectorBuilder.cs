@@ -36,7 +36,7 @@ namespace Working_title.MapGenerator
                         {
                             SetCellToPointToRoom(RandomConnectorInRoom);
                             Connectors.Add(RandomConnectorInRoom);
-                            GridMap[CurrentPositon] = new Door(RandomConnectorInRoom.Position, new Size(1,1));
+                            GridMap[RandomConnectorInRoom.Position] = new Door(RandomConnectorInRoom.Position, new Size(1,1), Room);
                             ConnectedRooms.Add(Room);
                         }
                     }

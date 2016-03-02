@@ -13,13 +13,10 @@ namespace Working_title.UI.Buttons
             TextureSize = new Size(Game1.ScreenSize.Width / 3, Game1.ScreenSize.Height / 12);
         }
 
-        protected override void OnMouseStay()
+        protected override void OnMouseDown()
         {
-            base.OnMouseStay();
-            if (Mouse.LeftButton == ButtonState.Pressed)
-            {
-                Game1.CurrentGameState = GameState.Playing;
-            }
+            base.OnMouseDown();
+            Game1.CurrentGameState = GameState.MapLoading;
         }
     }
 }

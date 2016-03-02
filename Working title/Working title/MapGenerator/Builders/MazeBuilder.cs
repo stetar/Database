@@ -9,10 +9,8 @@ namespace Working_title.MapGenerator
 {
     public class MazeBuilder : Builder
     {
-        private readonly Size CellSize;
-        
         private List<Cell> Maze = new List<Cell>();
-        private List<Cell> SearchMazeList = new List<Cell>();
+        private HashSet<Cell> SearchMazeList = new HashSet<Cell>();
         private GridMap GridMap;
         private Random Random;
 
@@ -28,7 +26,7 @@ namespace Working_title.MapGenerator
 
             while(SearchMazeList.Count > 0)
             {
-                Cell CurrentCell = GetNewestCell();
+                Cell CurrentCell = GetCell();
 
                 Cell RandomNeighborCell = GetRandomNeighborCell(CurrentCell);
                 RandomNeighborCell.ParentCell = CurrentCell;
@@ -66,14 +64,14 @@ namespace Working_title.MapGenerator
 
         private Cell GetRandomCell()
         {
-            Vector2 RandomPosition = Size.GetRandomSize(new Size(0, 0),GridMap.Size).ToVector2();
+            Vector2 RandomPosition = Size.GetRandomSize(new Size(0, 0),GridMap.Size,Random).ToVector2();
 
             return new Cell(RandomPosition, new Size(1, 1));
         }
 
-        private Cell GetNewestCell()
+        private Cell GetCell()
         {
-            return SearchMazeList[SearchMazeList.Count - 1];
+            return SearchMazeList.ElementAt(SearchMazeList.Count-1);
         }
 
         private Cell GetRandomNeighborCell(Cell cell)

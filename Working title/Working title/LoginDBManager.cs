@@ -35,7 +35,7 @@ namespace Working_title
         }
 
 
-        public void Register(string checkingWishedName, string checkingWishedPassword)
+        public bool Register(string checkingWishedName, string checkingWishedPassword)
         {
             CreateOrConnectDB();
             
@@ -55,9 +55,10 @@ namespace Working_title
                     insertCommand.ExecuteNonQuery();
 
                     Game1.CurrentGameState = GameState.MainMenu;
-                   
+                    return true;
                 }
             }   
+            return false;
         }
         
         public void Login(string checkingName, string checkingPassword)

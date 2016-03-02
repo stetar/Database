@@ -46,6 +46,7 @@ namespace Working_title.MoveableClasses
                 GridObjectMover.Move(GetDirectionMovingIn());
                 NextTimeToMove = TotalGameTime + MoveInterval;
             }
+            Game1.Camera.SetCenterPosition(Position);
         }
 
         private Vector2 GetDirectionMovingIn()

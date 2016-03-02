@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Jensenn/Documents/GitHubVisualStudio/Database/Working title/Working title/Content/BtnRegister.png</SourceFile>
-  <SourceTime>2016-02-26T13:16:04.6393035+01:00</SourceTime>
-  <DestFile>C:/Users/Jensenn/Documents/GitHubVisualStudio/Database/Working title/Working title/Content/bin/Windows/BtnRegister.xnb</DestFile>
-  <DestTime>2016-02-29T10:31:29.8817107+01:00</DestTime>
+  <SourceFile>C:/Users/TheBananaPc/Source/Repos/Database/Working title/Working title/Content/BtnRegister.png</SourceFile>
+  <SourceTime>2016-02-25T01:04:27.0330825+01:00</SourceTime>
+  <DestFile>C:/Users/TheBananaPc/Source/Repos/Database/Working title/Working title/Content/bin/Windows/BtnRegister.xnb</DestFile>
+  <DestTime>2016-03-01T14:44:00.0062169+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2015-04-29T19:14:44+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

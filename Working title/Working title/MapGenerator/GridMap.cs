@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
 namespace Working_title.MapGenerator
 {
-    public class GridMap
+    public class GridMap 
     {
         public Size Size;
         public List<Vector2> Directions = new List<Vector2>()
@@ -17,25 +18,28 @@ namespace Working_title.MapGenerator
         };
 
         private BuildObject[,] Map;
-        private List<BuildObject> MyObjectsAsList = new List<BuildObject>();
         private Size CellSize;
 
         public List<BuildObject> ObjectsAsList
         {
             get
             {
-                MyObjectsAsList.Clear();
+                List<BuildObject> ObjectsInGridMap = new List<BuildObject>();
                 for (int x = 0; x < Size.Width; x++)
                 {
                     for (int y = 0; y < Size.Height; y++)
                     {
                         BuildObject BuildObject = Map[x, y];
-                        MyObjectsAsList.Add(BuildObject);
+                        if (!ObjectsInGridMap.Contains(BuildObject))
+                        {
+                            ObjectsInGridMap.Add(BuildObject);
+                        }
                     }
                 }
-                return MyObjectsAsList;
+                return ObjectsInGridMap;
             }
         } 
+
 
         public GridMap(Size gridMapSize,Size cellsize)
         {
@@ -83,12 +87,14 @@ namespace Working_title.MapGenerator
             return RandomCell;
         }
 
+
         public bool IsWalkable(Vector2 position)
         {
             if (IsWithinBounds(position))
             {
                 BuildObject BuildObject = this[position];
-                return BuildObject is Cell;
+                BuildObject.Entered();
+                return BuildObject.IsWalkable();
             }
 
             return false;
@@ -116,5 +122,9 @@ namespace Working_title.MapGenerator
         }
 
 
+        public object CleanClone()
+        {
+            return new GridMap(Size,CellSize);
+        }
     }
 }
