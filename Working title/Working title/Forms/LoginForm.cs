@@ -60,7 +60,7 @@ namespace Working_title.Forms
             register.Click += (sender, e) =>
             {
                 MessageBox.Show("Moving to registration page!");
-                Game1.CurrentGameState = Game1.GameState.Register;
+                Game1.CurrentGameState = GameState.Register;
                 input.Close();
 
 

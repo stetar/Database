@@ -54,7 +54,7 @@ namespace Working_title
                     SQLiteCommand insertCommand = new SQLiteCommand(sqlInsert, dbConn);
                     insertCommand.ExecuteNonQuery();
 
-                    Game1.CurrentGameState = Game1.GameState.MainMenu;
+                    Game1.CurrentGameState = GameState.MainMenu;
                    
                 }
             }   
@@ -75,7 +75,7 @@ namespace Working_title
 
                 if (Count > 0)
                 {
-                    Game1.CurrentGameState = Game1.GameState.MainMenu;
+                    Game1.CurrentGameState = GameState.MainMenu;
                 }
             }
         }
