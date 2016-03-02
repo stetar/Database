@@ -13,7 +13,7 @@ namespace Working_title.Screens
 
         public override void Init()
         {
-            MapBuilder = new MapBuilder(new Size(300, 300));
+            MapBuilder = new MapBuilder(new Size(10, 10));
             Game1.MapBuilder = MapBuilder;
             LoadingBar = new LoadingBar(new Vector2(150, 250), new Size(400, 50), 4,OnLoadingBarDone);
             AddObjectToLoadingList(LoadingBar);

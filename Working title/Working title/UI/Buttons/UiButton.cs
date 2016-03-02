@@ -49,6 +49,10 @@ namespace Working_title.UI.Buttons
                     break;
                 case UIButtonState.Stay:
                     OnMouseStay();
+                    if (Mouse.LeftButton == ButtonState.Pressed)
+                    {
+                        OnMouseDown();
+                    }
                     break;
             }
         }
@@ -75,6 +79,11 @@ namespace Working_title.UI.Buttons
         protected virtual void OnMouseExit()
         {
 
+        }
+
+        protected virtual void OnMouseDown()
+        {
+            
         }
     }
 }

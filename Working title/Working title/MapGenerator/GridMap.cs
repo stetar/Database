@@ -18,36 +18,27 @@ namespace Working_title.MapGenerator
         };
 
         private BuildObject[,] Map;
-        private List<BuildObject> MyObjectsAsList = new List<BuildObject>();
         private Size CellSize;
 
         public List<BuildObject> ObjectsAsList
         {
             get
             {
-                List<BuildObject> ObjectsInListClone = new List<BuildObject>();
+                List<BuildObject> ObjectsInGridMap = new List<BuildObject>();
                 for (int x = 0; x < Size.Width; x++)
                 {
                     for (int y = 0; y < Size.Height; y++)
                     {
                         BuildObject BuildObject = Map[x, y];
-                        ObjectsInListClone.Add(BuildObject);
+                        if (!ObjectsInGridMap.Contains(BuildObject))
+                        {
+                            ObjectsInGridMap.Add(BuildObject);
+                        }
                     }
                 }
-                return ObjectsInListClone;
+                return ObjectsInGridMap;
             }
         } 
-
-        public int Length
-        {
-            get { return MyObjectsAsList.FindAll(objectInList => objectInList is Cell).Count; }
-        }
-
-        public Cell GetLastCell()
-        {
-            List<BuildObject> Cells = MyObjectsAsList.FindAll(objectInList => objectInList is Cell);
-            return (Cell)Cells[Cells.Count - 1];
-        }
 
 
         public GridMap(Size gridMapSize,Size cellsize)
@@ -102,7 +93,8 @@ namespace Working_title.MapGenerator
             if (IsWithinBounds(position))
             {
                 BuildObject BuildObject = this[position];
-                return BuildObject is Cell;
+                BuildObject.Entered();
+                return BuildObject.IsWalkable();
             }
 
             return false;

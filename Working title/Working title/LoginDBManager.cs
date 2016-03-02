@@ -35,7 +35,7 @@ namespace Working_title
         }
 
 
-        public void Register(string checkingWishedName, string checkingWishedPassword)
+        public bool Register(string checkingWishedName, string checkingWishedPassword)
         {
             CreateOrConnectDB();
             
@@ -45,7 +45,7 @@ namespace Working_title
             while (reader.Read())
             {
                 int Count = reader.GetInt32(0);
-                 Debug.Assert(Count <= 0, "Wished name is not free, try another!");
+                Debug.Assert(Count <= 0, "Wished name is not free, try another!");
                 
 
                 if(Count <= 0)
@@ -54,10 +54,11 @@ namespace Working_title
                     SQLiteCommand insertCommand = new SQLiteCommand(sqlInsert, dbConn);
                     insertCommand.ExecuteNonQuery();
 
-                    Game1.CurrentGameState = Game1.GameState.MainMenu;
-                   
+                    Game1.CurrentGameState = GameState.MainMenu;
+                    return true;
                 }
-            }   
+            }
+            return false;
         }
         
         public void Login(string checkingName, string checkingPassword)
@@ -75,7 +76,7 @@ namespace Working_title
 
                 if (Count > 0)
                 {
-                    Game1.CurrentGameState = Game1.GameState.MainMenu;
+                    Game1.CurrentGameState = GameState.MainMenu;
                 }
             }
         }

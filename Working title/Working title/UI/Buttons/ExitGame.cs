@@ -1,51 +1,25 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Working_title.MapGenerator;
 
 namespace Working_title.UI.Buttons
 {
-    class ExitGame
+    class ExitGame : UiButton
     {
-        Texture2D texture;
-        Vector2 position;
-        Rectangle rectangle;
-        public bool ExitIsClicked;
-        Color colour = new Color(255, 255, 255, 255); // R, B, G, A
-        public Vector2 size;
-
-        public ExitGame(Texture2D newTexture, GraphicsDevice graphics)
+        public ExitGame(Vector2 position) : 
+            base(position)
         {
-            texture = newTexture;
-            size = new Vector2(graphics.Viewport.Width / 3, graphics.Viewport.Height / 12);
+            TextureName = "ExitButton";
+            TextureSize = new Size(Game1.ScreenSize.Width / 3, Game1.ScreenSize.Height / 12);
         }
 
 
-        public void Update(MouseState mouse)
+        protected override void OnMouseDown()
         {
-            rectangle = new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
-
-            Rectangle mouseRectangle = new Rectangle(mouse.X, mouse.Y, 1, 1);
-
-            if (mouseRectangle.Intersects(rectangle))
-            {
-                colour.A = 255;
-                if (mouse.LeftButton == ButtonState.Pressed) ExitIsClicked = true;
-            }
-            else
-            {
-                colour.A = 235;
-                ExitIsClicked = false;
-            }
+            base.OnMouseDown();
+            Game1.CurrentGameState = GameState.Closing;
         }
 
-        public void SetPosition(Vector2 newPosition)
-        {
-            position = newPosition;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(texture, rectangle, colour);
-        }
     }
 }

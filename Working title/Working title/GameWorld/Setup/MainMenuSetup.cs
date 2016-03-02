@@ -5,7 +5,7 @@ using Working_title.MapGenerator;
 
 namespace Working_title.Setup
 {
-    public class LoginSetup : WorldSetup
+    public class MainMenuSetup : WorldSetup
     {
         private const int ScreenWidth = 800;
         private const int ScreenHeight = 600;
@@ -22,7 +22,10 @@ namespace Working_title.Setup
             LoadTexture("BtnOk", "BtnOk");
             LoadTexture("BtnRegister", "BtnRegister");
             LoadTexture("loginBg", "loginBg");
-            LoadTexture("StartGame", "Images/StartGame");
+            LoadTexture("StartGame", "btnStartGame");
+            LoadTexture("AboutButton", "btnAbout");
+            LoadTexture("CreditsButton", "btnCredits");
+            LoadTexture("ExitButton", "btnExit");
         }
     }
 }

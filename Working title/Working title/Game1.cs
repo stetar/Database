@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using The_RPG_thread_game.Utillity;
 using Working_title.UI.Buttons;
 using Working_title.Cells;
+using Working_title.Forms;
 using Working_title.MapGenerator;
 using Working_title.MoveableClasses;
 using Working_title.Screens;
@@ -20,7 +21,7 @@ namespace Working_title
     public class Game1 : Game
     {
         // TODO Move to seperate class(es) / refactoring.
-        public static GameState CurrentGameState = GameState.Login;
+        public static GameState CurrentGameState = GameState.MainMenu;
         public static List<GameObject> Objects = new List<GameObject>();
         public static List<CollidingSprite> CollidingSprites = new List<CollidingSprite>();
         public static Dictionary<string,Texture2D> Textures = new Dictionary<string, Texture2D>();
@@ -78,14 +79,14 @@ namespace Working_title
         {
             WorldSetups.Add(new DebugSetup());
             WorldSetups.Add(new GeneralSetup());
-            WorldSetups.Add(new LoginSetup());
+            WorldSetups.Add(new MainMenuSetup());
             WorldSetups.Add(new MapSetup());
             WorldSetups.Add(new PlayerSetup());
         }
 
         private void AddScreens()
         {
-            Screens.Add(new LoginScreen());
+            Screens.Add(new MainMenuScreen());
             Screens.Add(new MapScreen());
             Screens.Add(new MapLoadingScreen());
         }
@@ -136,14 +137,8 @@ namespace Working_title
         {
             switch (gameState)
             {
-                case GameState.Login:
-                    CurrentScreen = Screens.Find(screen => screen is LoginScreen);
-                    break;
-
-                case GameState.Register:
-                    break;
-
                 case GameState.MainMenu:
+                    CurrentScreen = Screens.Find(screen => screen is MainMenuScreen);
                     break;
 
                 case GameState.Playing:
@@ -154,6 +149,7 @@ namespace Working_title
                     break;
 
                 case GameState.Closing:
+                    Exit();
                     break;
             }
         }

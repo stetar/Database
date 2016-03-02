@@ -9,11 +9,12 @@ namespace Working_title.MapGenerator
     public class RoomBuilder : Builder
     {
         private const int NumberOfRoomTries = 500000;
+        private const int NumberOfRoomsRatio = 100;
 
         private readonly Size SizeAroundRooms = new Size(1,1);
         private readonly Size RoomMaxSize = new Size(5,5);
         private readonly Size RoomMinSize = new Size(2, 2);
-        private readonly Limit RoomLimit = new Limit(40,25);
+        private readonly Limit RoomDiffLimit = new Limit(10,-10);
         
 
         private List<Room> Rooms = new List<Room>();
@@ -31,7 +32,7 @@ namespace Working_title.MapGenerator
 
         public void Build(BuilderCallback builderCallback)
         {
-            int RoomsToBuild = RoomLimit.RandomIntWithinLimit();
+            int RoomsToBuild = ((GridMapSize.Width*GridMapSize.Height)/NumberOfRoomsRatio);
 
             for (int i = 0; i < NumberOfRoomTries; i++)
             {

@@ -14,7 +14,8 @@ namespace Working_title.Forms
                 Height = 600,
                 StartPosition = FormStartPosition.Manual,
                 Location = new System.Drawing.Point(100, 100),
-                BackgroundImage = Image.FromFile(@"Content/loginBg.jpg")
+                BackgroundImage = Image.FromFile(@"Content/loginBg.jpg"),
+                BackgroundImageLayout = ImageLayout.Stretch
             };
 
             TextBox textBox1 = new TextBox() { Left = 350, Top = 150, Width = 200 };
@@ -60,7 +61,7 @@ namespace Working_title.Forms
             register.Click += (sender, e) =>
             {
                 MessageBox.Show("Moving to registration page!");
-                Game1.CurrentGameState = Game1.GameState.Register;
+                RegisterForm.ShowDialog();
                 input.Close();
 
 

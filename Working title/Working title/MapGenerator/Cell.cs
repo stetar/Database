@@ -47,7 +47,9 @@ namespace Working_title.MapGenerator
             return Directions.Contains(direction);
         }
 
-
-       
+        public override bool IsWalkable()
+        {
+            return true;
+        }
     }
 }
