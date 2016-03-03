@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 namespace Working_title.MapGenerator
@@ -21,6 +22,11 @@ namespace Working_title.MapGenerator
             return new Size(size1.Width + size2.Width, size1.Height + size2.Height);
         }
 
+        public static Size operator -(Size size1, Size size2)
+        {
+            return new Size(size1.Width - size2.Width, size1.Height - size2.Height);
+        }
+
         public static Size operator *(Size size1, Size size2)
         {
             return new Size(size1.Width * size2.Width, size1.Height * size2.Height);
@@ -38,7 +44,7 @@ namespace Working_title.MapGenerator
 
         public Vector2 ToVector2()
         {
-            return new Vector2(Width,Height);
+            return new Vector2(Width ,Height);
         }
 
         public Point ToPoint()
@@ -59,6 +65,23 @@ namespace Working_title.MapGenerator
             RandomSize.Height = RandomHeight;
             
             return (Size)RandomSize.MemberwiseClone();
+        }
+
+        public List<Vector2> Positions(Vector2 upLeftCornerPosition)
+        {
+            List<Vector2> Positions = new List<Vector2>();
+
+            Vector2 StartPosition = upLeftCornerPosition;
+
+            for (int X = 0; X < Width; X++)
+            {
+                for (int Y = 0; Y < Height; Y++)
+                {
+                    Positions.Add(new Vector2((int)StartPosition.X + X, (int)StartPosition.Y + Y));
+                }
+            }
+
+            return Positions;
         }
 
 

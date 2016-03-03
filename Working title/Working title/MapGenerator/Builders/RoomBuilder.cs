@@ -9,19 +9,17 @@ namespace Working_title.MapGenerator
     public class RoomBuilder : Builder
     {
         private const int NumberOfRoomTries = 500000;
-        private const int NumberOfRoomsRatio = 100;
+        private const int TilesNumberToRoomsRatio = 100;
 
         private readonly Size SizeAroundRooms = new Size(1,1);
         private readonly Size RoomMaxSize = new Size(5,5);
         private readonly Size RoomMinSize = new Size(2, 2);
-        private readonly Limit RoomDiffLimit = new Limit(10,-10);
-        
+        private readonly Limit RoomProcentChange = new Limit(1.1f,0.9f);
 
         private List<Room> Rooms = new List<Room>();
         private Size GridMapSize;
         private GridMap GridMap;
         private Random Random;
-         
 
         public RoomBuilder(Size gridMapSize, GridMap gridMap)
         {
@@ -32,7 +30,7 @@ namespace Working_title.MapGenerator
 
         public void Build(BuilderCallback builderCallback)
         {
-            int RoomsToBuild = ((GridMapSize.Width*GridMapSize.Height)/NumberOfRoomsRatio);
+            int RoomsToBuild = (int)Math.Round((NumberOfTilesInGridMap() / (float)TilesNumberToRoomsRatio) * RoomProcentChange.RandomFloatWithinLimit());
 
             for (int i = 0; i < NumberOfRoomTries; i++)
             {
@@ -68,15 +66,12 @@ namespace Working_title.MapGenerator
 
         private bool IsWithinBounds(Room room)
         {
-            return room.Positions().All(IsWithinBounds);
+            return room.Positions().All(GridMap.IsWithinBounds);
         }
 
-      
-
-        private bool IsWithinBounds(Vector2 position)
+        private int NumberOfTilesInGridMap()
         {
-            return GridMapSize.Width > position.X && GridMapSize.Height > position.Y &&
-            position.X > 0 && position.Y > 0;
+            return GridMapSize.Width * GridMapSize.Height;
         }
 
 

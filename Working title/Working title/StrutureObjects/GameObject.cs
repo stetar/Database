@@ -5,6 +5,8 @@ namespace Working_title
     public abstract class GameObject
     {
         public Vector2 Position;
+        public bool IsDead;
+
         protected float DeltaTime;
         protected float TotalGameTime;
 
@@ -21,7 +23,8 @@ namespace Working_title
 
         public virtual void Die()
         {
-            
+            Game1.RemoveObjectInNextCycle(this);
+            IsDead = true;
         }
     }
 }

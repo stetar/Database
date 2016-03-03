@@ -44,7 +44,7 @@ namespace Working_title
         private void CheckCollision()
         {
             List<CollidingSprite> CollidingSprites = Game1.CollidingSprites.FindAll(
-                sprite => sprite.CollidingWith(CollisionBox));
+                sprite => sprite.CollidingWith(CollisionBox) && sprite != this);
 
             OnCollision(CollidingSprites);
         }

@@ -8,7 +8,7 @@ namespace Working_title.Setup
         public override void LoadContent(ContentManager contentManager)
         {
             base.LoadContent(contentManager);
-            LoadTexture("Player", "Images/player");
+            LoadTexture("Player", "Images/Player/Warrior");
         }
     }
 }

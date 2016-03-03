@@ -18,6 +18,7 @@ namespace Working_title.Forms
                 BackgroundImageLayout = ImageLayout.Stretch
             };
 
+            bool FailedLogin = true;
             TextBox textBox1 = new TextBox() { Left = 350, Top = 150, Width = 200 };
             TextBox textBox2 = new TextBox() { Left = 350, Top = 180, Width = 200 };
 
@@ -47,6 +48,13 @@ namespace Working_title.Forms
             input.Controls.Add(label1);
             input.Controls.Add(label2);
 
+            input.FormClosing += (sender, args) =>
+            {
+                if (FailedLogin)
+                {
+                    Game1.CurrentGameState = GameState.Closing;
+                }
+            };
 
             logIn.Click += (sender, e) =>
             {
@@ -54,16 +62,16 @@ namespace Working_title.Forms
                 string checkingName = textBox1.Text;
                 string checkingPassword = textBox2.Text;
 
-                loginDBManager.Login(checkingName, checkingPassword);
-
+                if (loginDBManager.Login(checkingName, checkingPassword))
+                {
+                    FailedLogin = false;
+                }
             };
 
             register.Click += (sender, e) =>
             {
-                MessageBox.Show("Moving to registration page!");
                 RegisterForm.ShowDialog();
                 input.Close();
-
 
             };
             return input.ShowDialog() == DialogResult.OK ? textBox1.Text : "";

@@ -4,15 +4,22 @@ using System.Diagnostics;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Working_title.Combat;
+using Working_title.Enemies;
+using Working_title.Managers;
 using Working_title.MapGenerator;
+using Working_title.MoveableClasses.XP;
+using Working_title.UI;
 
 namespace Working_title.MoveableClasses
 {
     public delegate Vector2 KeyDirection();
 
-    public class Player : NonCollidingSprite
+    public class Player : AttackingSprite
     {
         private GridObjectMover GridObjectMover;
+        private Vector2 LastDirection;
+
         public List<KeyChecker> MoveableDirections = new List<KeyChecker>()
         {
              new KeyChecker(new List<Keys>(){ Keys.A, Keys.Left },-Vector2.UnitX),
@@ -23,6 +30,9 @@ namespace Working_title.MoveableClasses
 
         private float MoveInterval = 250;
         private float NextTimeToMove;
+        private PlayerItems PlayerItems;
+
+        public UpdatePlayerStats UpdatePlayerStats { get; }
 
         public Player(Vector2 position, GridMap gridMap) :
             base(position)
@@ -30,6 +40,9 @@ namespace Working_title.MoveableClasses
             GridObjectMover = new GridObjectMover(gridMap, this);
             TextureName = "Player";
             TextureSize = new Size(30, 30);
+            Game1.AddObjectInNextCycle(new HealthBar(new Size(TextureSize.Width, 10), this, new Vector2(0, -(float)TextureSize.Width / 2)));
+            UpdatePlayerStats = new UpdatePlayerStats(this);
+            Game1.AddObjectInNextCycle(new XpBar(new Size(150, 30), Game1.Camera, new Vector2(0, 0), UpdatePlayerStats.Level));
             LayerDepth = 1;
         }
 
@@ -39,11 +52,17 @@ namespace Working_title.MoveableClasses
             Move();
         }
 
+        public void AddItem(EnemyDropType enemyDropType, PlayerStat playerStat)
+        {
+            PlayerItems.AddItemIfNotExist(enemyDropType, playerStat);
+        }
+
         private void Move()
         {
             if (GetDirectionMovingIn() != Vector2.Zero && NextTimeToMove < TotalGameTime)
             {
-                GridObjectMover.Move(GetDirectionMovingIn());
+                LastDirection = GetDirectionMovingIn();
+                GridObjectMover.Move(LastDirection);
                 NextTimeToMove = TotalGameTime + MoveInterval;
             }
             Game1.Camera.SetCenterPosition(Position);
@@ -60,6 +79,23 @@ namespace Working_title.MoveableClasses
             }
 
             return Vector2.Zero;
+        }
+
+        protected override void DoDamage(AttackingSprite attackingSprite)
+        {
+            if (attackingSprite is Enemy)
+            {
+                base.DoDamage(attackingSprite);
+                GridObjectMover.Move(-LastDirection);
+            }
+        }
+
+        public override void Die()
+        {
+            base.Die();
+            Game1.CurrentGameState = GameState.MapLoading;
+            Game1.RemoveAllObjects();
+            GameManager.Level = 1;
         }
     }
 }

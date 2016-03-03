@@ -11,9 +11,10 @@ namespace Working_title.Screens
         {
             AddObjectToLoadingList(new NonCollidingStaticSprite(new Vector2(0, 0), Game1.ScreenSize, "loginBg"));
             AddObjectToLoadingList(new StartGame(new Vector2(300, 75)));
-            AddObjectToLoadingList(new Register(new Vector2(300, 175)));
-            AddObjectToLoadingList(new AboutTheGame(new Vector2(300, 275)));
-            AddObjectToLoadingList(new ExitGame(new Vector2(300, 375)));
+            AddObjectToLoadingList(new AboutTheGame(new Vector2(300, 175)));
+            AddObjectToLoadingList(new ExitGame(new Vector2(300, 275)));
+            Game1.Camera.Position = Vector2.Zero;
         }
+
     }
 }

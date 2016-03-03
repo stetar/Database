@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Working_title.Setup
 {
-    public class DebugSetup : WorldSetup
+    public class ColorSetup : WorldSetup
     {
 
         public override void LoadContent(ContentManager contentManager)
@@ -13,6 +13,7 @@ namespace Working_title.Setup
             LoadTexture("Green", "Images/Green");
             LoadTexture("Yellow", "Images/Yellow");
             LoadTexture("Black", "Images/Black");
+            LoadTexture("Purple", "Images/purple");
         }
     }
 }

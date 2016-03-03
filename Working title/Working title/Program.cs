@@ -14,9 +14,11 @@ namespace Working_title
         static void Main()
         {
             LoginForm.ShowDialog();
-            using (var game = new Game1())
-                game.Run();
-            
+            if (Game1.CurrentGameState != GameState.Closing)
+            {
+                using (var game = new Game1())
+                    game.Run();
+            }
         }
     }
 #endif

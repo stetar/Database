@@ -2,6 +2,7 @@
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Working_title.Screens;
 
 namespace Working_title.MapGenerator
 {
@@ -21,14 +22,16 @@ namespace Working_title.MapGenerator
         private CellFactory CellFactory;
         private MapFactory MapFactory;
         private MapCreator MapCreator;
+        private Screen MapScreen;
 
         public GridMap GridMap => MyGridMap;
 
-        public MapBuilder(Size mapSize)
+        public MapBuilder(Size mapSize,Screen mapScreen)
         {
+            MapSize = mapSize;
+            MapScreen = mapScreen;
             CellFactory = new CellFactory();
             MapFactory = new MapFactory();
-            MapSize = mapSize;
             MyGridMap = new GridMap(MapSize,CellSize);
             RoomBuilder = new RoomBuilder(MyGridMap.Size, MyGridMap);
             MazeBuilder = new MazeBuilder(MyGridMap);
@@ -36,7 +39,6 @@ namespace Working_title.MapGenerator
             DeadEndRemover = new DeadEndRemover(MyGridMap);
         }
  
-
         public void Build(BuilderCallback builderCallback)
         {
             RoomBuilder.Build(builderCallback);

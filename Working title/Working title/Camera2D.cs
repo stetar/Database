@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Working_title;
 
 namespace LearningMonoGameGame
 {
-    public class Camera2D
+    public class Camera2D : GameObject
     {
         private readonly Viewport _viewport;
 
-        public Camera2D(Viewport viewport)
+        public Camera2D(Viewport viewport, Vector2 position) : 
+            base(position)
         {
             _viewport = viewport;
 
@@ -21,7 +23,6 @@ namespace LearningMonoGameGame
             Position = Vector2.Zero;
         }
 
-        public Vector2 Position { get; set; }
         public float Rotation { get; set; }
         public float Zoom { get; set; }
         public Vector2 Origin { get; set; }

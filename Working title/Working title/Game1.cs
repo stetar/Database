@@ -22,7 +22,7 @@ namespace Working_title
     {
         // TODO Move to seperate class(es) / refactoring.
         public static GameState CurrentGameState = GameState.MainMenu;
-        public static List<GameObject> Objects = new List<GameObject>();
+        public static HashSet<GameObject> Objects = new HashSet<GameObject>();
         public static List<CollidingSprite> CollidingSprites = new List<CollidingSprite>();
         public static Dictionary<string,Texture2D> Textures = new Dictionary<string, Texture2D>();
         public static Dictionary<string,SpriteFont> SpriteFonts = new Dictionary<string, SpriteFont>();
@@ -30,8 +30,8 @@ namespace Working_title
         public static MapBuilder MapBuilder;
 
         private static GraphicsDeviceManager Graphics;
-        private static List<GameObject> ObjectsToAddInNextCycle = new List<GameObject>();
-        private static List<GameObject> ObjectsToRemoveInNextCycle = new List<GameObject>();
+        private static HashSet<GameObject> ObjectsToAddInNextCycle = new HashSet<GameObject>();
+        private static HashSet<GameObject> ObjectsToRemoveInNextCycle = new HashSet<GameObject>();
         private static GameState LastGameState = GameState.None;
 
         private SpriteBatch SpriteBatch;
@@ -39,6 +39,7 @@ namespace Working_title
         private List<WorldSetup> WorldSetups = new List<WorldSetup>();
         private List<Screen> Screens = new List<Screen>();
         private Screen CurrentScreen;
+        private static bool ClearAllObjects;
 
 
         public static Size ScreenSize
@@ -71,24 +72,26 @@ namespace Working_title
         {
             base.Initialize();
             WorldSetups.DoActionOnItems(setup => setup.Init());
-            Screens.DoActionOnItems(screen => screen.Init());
-            Camera = new Camera2D(GraphicsDevice.Viewport);
+            Camera = new Camera2D(GraphicsDevice.Viewport,Vector2.Zero);
         }
 
         private void AddWorldSetups()
         {
-            WorldSetups.Add(new DebugSetup());
+            WorldSetups.Add(new ColorSetup());
             WorldSetups.Add(new GeneralSetup());
             WorldSetups.Add(new MainMenuSetup());
             WorldSetups.Add(new MapSetup());
             WorldSetups.Add(new PlayerSetup());
+            WorldSetups.Add(new EnemySetup());
         }
 
         private void AddScreens()
         {
             Screens.Add(new MainMenuScreen());
-            Screens.Add(new MapScreen());
-            Screens.Add(new MapLoadingScreen());
+            
+            MapScreen MapScreen = new MapScreen();
+            Screens.Add(MapScreen);
+            Screens.Add(new MapLoadingScreen(MapScreen));
         }
 
         /// <summary>
@@ -230,9 +233,22 @@ namespace Working_title
                 if (Objects.Contains(ObjectToRemove))
                 {
                     Objects.Remove(ObjectToRemove);
+                    CollidingSprites.Remove(ObjectToRemove as CollidingSprite);
                 }
             }
+            if (ClearAllObjects)
+            {
+                Objects.Clear();
+                CollidingSprites.Clear();
+                ClearAllObjects = false;
+            }
+           
             ObjectsToRemoveInNextCycle.Clear();
+        }
+
+        public static void RemoveAllObjects()
+        {
+            ClearAllObjects = true;
         }
     }
 }

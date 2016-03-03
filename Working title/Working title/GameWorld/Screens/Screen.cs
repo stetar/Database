@@ -7,7 +7,7 @@ namespace Working_title.Screens
 {
     public abstract class Screen
     {
-        protected List<GameObject> ScreenObjects = new List<GameObject>();
+        protected HashSet<GameObject> ScreenObjects = new HashSet<GameObject>();
 
         protected Action<GameObject> RemoveAction = (gameObject) => Game1.RemoveObjectInNextCycle(gameObject);
         protected Action<GameObject> AddAction = (gameObject) => Game1.AddObjectInNextCycle(gameObject);
@@ -16,6 +16,8 @@ namespace Working_title.Screens
 
         public virtual void Load()
         {
+            ScreenObjects.Clear();
+            Init();
             ScreenObjects.DoActionOnItems(AddAction);
         }
 
@@ -27,6 +29,12 @@ namespace Working_title.Screens
         protected virtual void AddObjectToLoadingList(GameObject gameObject)
         {
             ScreenObjects.Add(gameObject);
+        }
+
+        public void AddObjectToScreen(GameObject gameObject)
+        {
+            ScreenObjects.Add(gameObject);
+            Game1.AddObjectInNextCycle(gameObject);
         }
     }
 }

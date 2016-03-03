@@ -22,6 +22,10 @@ namespace Working_title.MapGenerator
         private List<Vector2> LeftUpDirections;
         private List<Vector2> LeftDownDirections;
         private List<Vector2> RightDownDirections;
+        private List<Vector2> TCrossRightDirections;
+        private List<Vector2> TCrossLeftDirections;
+        private List<Vector2> TCrossUpDirections;
+        private List<Vector2> TCrossDownDirections;
 
         public CellFactory()
         {
@@ -35,7 +39,12 @@ namespace Working_title.MapGenerator
             LeftUpDirections = new List<Vector2>()      { LeftDirection, UpDirection    };
             LeftDownDirections = new List<Vector2>()    { LeftDirection, DownDirection  };
             RightDownDirections = new List<Vector2>()   { RightDirection, DownDirection };
-    }
+
+            TCrossRightDirections = new List<Vector2>() { RightDirection, DownDirection, UpDirection    };
+            TCrossLeftDirections = new List<Vector2>()  { LeftDirection, DownDirection, UpDirection     };
+            TCrossUpDirections = new List<Vector2>()    { RightDirection, LeftDirection, UpDirection    };
+            TCrossDownDirections = new List<Vector2>()  { RightDirection, LeftDirection, DownDirection  };
+        }
 
         public GameObject CreateObject(Creator creator)
         {
@@ -46,33 +55,58 @@ namespace Working_title.MapGenerator
                 IsMovingInOneDirection(CellDirections, LeftDirection) ||
                 IsMovingInOneDirection(CellDirections, RightDirection))
             {
-                return new RightRightCell(CellCreator.StartPosition,CellCreator.Size);
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "RightRight");
             }
+
             if (IsDirectionsEqual(CellDirections, DownUpDirections) ||
                 IsMovingInOneDirection(CellDirections,LeftDirection) || 
                 IsMovingInOneDirection(CellDirections, RightDirection))
             {
-                return new UpUpCell(CellCreator.StartPosition, CellCreator.Size);
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "UpUp");
             }
+
             if (IsDirectionsOrderEqual(CellDirections, UpLeftDirections) ||
                 IsDirectionsOrderEqual(CellDirections, LeftUpDirections))
             {
-                return new UpLeftCell(CellCreator.StartPosition, CellCreator.Size);
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "UpLeft");
             }
+
             if (IsDirectionsOrderEqual(CellDirections, UpRightDirections) ||
                 IsDirectionsOrderEqual(CellDirections, RightUpDirections))
             {
-                return new UpRightCell(CellCreator.StartPosition, CellCreator.Size);
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "UpRight");
             }
+
             if (IsDirectionsOrderEqual(CellDirections, DownLeftDirections) || 
                 IsDirectionsOrderEqual(CellDirections, LeftDownDirections))
             {
-                return new DownLeftCell(CellCreator.StartPosition, CellCreator.Size);
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "DownLeft");
             }
+
             if (IsDirectionsOrderEqual(CellDirections, DownRightDirections) ||
                 IsDirectionsOrderEqual(CellDirections, RightDownDirections))
             {
-                return new DownRightCell(CellCreator.StartPosition, CellCreator.Size);
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "DownRight");
+            }
+
+            if (IsDirectionsEqual(CellDirections, TCrossLeftDirections))
+            {
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "TCrossLeft");
+            }
+
+            if (IsDirectionsEqual(CellDirections, TCrossRightDirections))
+            {
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "TCrossRight");
+            }
+
+            if (IsDirectionsEqual(CellDirections, TCrossUpDirections))
+            {
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "TCrossUp");
+            }
+
+            if (IsDirectionsEqual(CellDirections, TCrossDownDirections))
+            {
+                return new SpawedCell(CellCreator.StartPosition, CellCreator.Size, "TCrossDown");
             }
 
             return new EmptyGameObject();

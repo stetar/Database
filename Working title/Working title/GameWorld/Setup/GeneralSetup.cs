@@ -9,6 +9,7 @@ namespace Working_title.Setup
         {
             base.LoadContent(contentManager);
             LoadSpriteFont("StandardFont", "Fonts/StandardFont");
+            LoadTexture("LoadingScreenBackground","Images/Diverse/Background");
         }
     }
 }

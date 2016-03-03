@@ -9,7 +9,7 @@ namespace Working_title
         public DoorSprite(Vector2 position, Size size) :
             base(position)
         {
-            TextureName = "Yellow";
+            TextureName = "Door";
             TextureSize = size;
             LayerDepth = 1;
         }

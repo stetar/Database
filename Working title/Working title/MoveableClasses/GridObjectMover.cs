@@ -29,8 +29,10 @@ namespace Working_title.MoveableClasses
         {
             Vector2 GridPositionBeforeMoved = GridMap.ConvertWorldPositionToGridPosition(ObjectToMove.Position);
             Vector2 GridPositionAfterMoved = GridPositionBeforeMoved + direction;
-            Cell CellBeforeMoved = GridMap[GridPositionBeforeMoved] as Cell;
-            if (HasCellDirection(CellBeforeMoved,direction) && GridMap.IsWalkable(GridPositionAfterMoved))
+            BuildObject BuildObjectBeforeMoved = GridMap[GridPositionBeforeMoved];
+            BuildObject BuildObjectAfterMoved = GridMap[GridPositionAfterMoved];
+            if ((HasCellDirection(BuildObjectBeforeMoved as Cell,direction) || BuildObjectAfterMoved is Room || BuildObjectAfterMoved is Door ||
+                BuildObjectBeforeMoved is Door) && GridMap.IsWalkable(GridPositionAfterMoved))
             {
                 ObjectToMove.Position = GridMap.ConvertGridPositionToWorldPosition(GridPositionAfterMoved);
             }

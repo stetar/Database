@@ -18,19 +18,7 @@ namespace Working_title.MapGenerator
 
         public List<Vector2> Positions()
         {
-            List<Vector2> RoomPositions = new List<Vector2>();
-
-            Vector2 RoomPosition = Position;
-
-            for (int Width = 0; Width < Size.Width; Width++)
-            {
-                for (int Height = 0; Height < Size.Height; Height++)
-                {
-                    RoomPositions.Add(new Vector2((int)RoomPosition.X + Width, (int)RoomPosition.Y + Height));
-                }
-            }
-
-            return RoomPositions;
+            return Size.Positions(Position);
         }
 
         public override bool IsWalkable()

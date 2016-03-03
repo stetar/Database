@@ -46,7 +46,6 @@ namespace Working_title
             {
                 int Count = reader.GetInt32(0);
                 Debug.Assert(Count <= 0, "Wished name is not free, try another!");
-                
 
                 if(Count <= 0)
                 {
@@ -61,7 +60,7 @@ namespace Working_title
             return false;
         }
         
-        public void Login(string checkingName, string checkingPassword)
+        public bool Login(string checkingName, string checkingPassword)
         {
             CreateOrConnectDB();
 
@@ -77,8 +76,11 @@ namespace Working_title
                 if (Count > 0)
                 {
                     Game1.CurrentGameState = GameState.MainMenu;
+                    return true;
                 }
             }
+            return false;
+
         }
 
     }

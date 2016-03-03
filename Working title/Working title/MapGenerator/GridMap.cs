@@ -9,6 +9,8 @@ namespace Working_title.MapGenerator
     public class GridMap 
     {
         public Size Size;
+        public static Size CellSize;
+
         public List<Vector2> Directions = new List<Vector2>()
         {
             new Vector2(1,0),
@@ -18,7 +20,7 @@ namespace Working_title.MapGenerator
         };
 
         private BuildObject[,] Map;
-        private Size CellSize;
+        
 
         public List<BuildObject> ObjectsAsList
         {
@@ -66,14 +68,19 @@ namespace Working_title.MapGenerator
                 position.X >= 0 && position.Y >= 0;
         }
 
-        public Vector2 ConvertWorldPositionToGridPosition(Vector2 worldPosition)
+        public static Vector2 ConvertWorldPositionToGridPosition(Vector2 worldPosition)
         {
             return worldPosition / CellSize.ToVector2();
         }
 
-        public Vector2 ConvertGridPositionToWorldPosition(Vector2 gridPosition)
+        public static Vector2 ConvertGridPositionToWorldPosition(Vector2 gridPosition)
         {
             return gridPosition * CellSize.ToVector2();
+        }
+
+        public static Size ConvertWorldSizeToGridSize(Size size)
+        {
+            return size / CellSize;
         }
 
 

@@ -13,15 +13,11 @@ namespace Working_title.Screens
 
         public override void Init()
         {
-
-        }
-
-        public override void Load()
-        {
             MapBuilder MapBuilder = Game1.MapBuilder;
             AddPlayer(MapBuilder.GridMap);
-            base.Load();
         }
+
+
 
         public void AddPlayer(GridMap gridmap)
         {

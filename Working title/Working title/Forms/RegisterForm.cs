@@ -22,6 +22,7 @@ namespace Working_title.Forms
             TextBox textBox1 = new TextBox() { Left = 350, Top = 150, Width = 200 };
             TextBox textBox2 = new TextBox() { Left = 350, Top = 180, Width = 200 };
 
+            bool FailedRegister = true;
             Label label1 = new Label();
             label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             label1.Location = new System.Drawing.Point(210, 150);
@@ -46,8 +47,15 @@ namespace Working_title.Forms
             input.Controls.Add(label1);
             input.Controls.Add(label2);
 
+            input.FormClosing += (sender, args) =>
+            {
+                if (FailedRegister)
+                {
+                    Game1.CurrentGameState = GameState.Closing;
+                }
+            };
 
-        okCheck.Click += (sender, e) =>
+            okCheck.Click += (sender, e) =>
             {
                 string checkingWishedName = textBox1.Text;
                 string checkingWishedPassword = textBox2.Text;
@@ -55,6 +63,7 @@ namespace Working_title.Forms
                 if (loginDBManager.Register(checkingWishedName, checkingWishedPassword))
                 {
                     Game1.CurrentGameState = GameState.MainMenu;
+                    FailedRegister = false;
                 }
 
             };

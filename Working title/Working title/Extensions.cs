@@ -26,6 +26,14 @@ namespace The_RPG_thread_game.Utillity
             }
         }
 
+        public static void DoActionOnItems<T>(this HashSet<T> list, Action<T> action)
+        {
+            foreach (var Item in list)
+            {
+                action(Item);
+            }
+        }
+
         public static void StartAndRunInFront(this Thread thread)
         {
             thread.Start();
@@ -43,8 +51,9 @@ namespace The_RPG_thread_game.Utillity
             }
         }
 
-     
 
-  
+
+
+
     }
 }

@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Working_title.MapGenerator;
+using Working_title.UI;
 
 namespace Working_title.Utillity
 {
     public delegate void LoadingBarDoneCallback();
 
-    public class LoadingBar : NonCollidingSprite
+    public class LoadingBar : Bar
     {
         private const float LoadingSpeed = 0.1f;
 
@@ -18,7 +19,7 @@ namespace Working_title.Utillity
         private Size FullSize;
 
         public LoadingBar(Vector2 position,Size fullSize,int numberOfLoadingPoints, LoadingBarDoneCallback loadingBarDoneCallback) :
-            base(position)
+            base(position, fullSize)
         {
             FullSize = fullSize;
             NumberOfLoadingPoints = numberOfLoadingPoints;
@@ -36,22 +37,12 @@ namespace Working_title.Utillity
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            SetWantedLoadingBarProcent();
+            SetWantedLoadingBarProcent(CurrentLoadingPoint / (float)NumberOfLoadingPoints);
             if (CurrentLoadingBarProcent() < WantedLoadingBarProcent)
             {
                 TextureSize += new Size((int)(LoadingSpeed * DeltaTime),0);
             }
             ShouldCallback();
-        }
-
-        public float CurrentLoadingBarProcent()
-        {
-            return (float)TextureSize.Width / (float)FullSize.Width;
-        }
-
-        private void SetWantedLoadingBarProcent()
-        {
-            WantedLoadingBarProcent = CurrentLoadingPoint / (float)NumberOfLoadingPoints;
         }
 
         private void ShouldCallback()

@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 
 namespace Working_title.MapGenerator
 {
     public class Door : BuildObject
     {
         private Room Room;
+  
 
         public Door(Vector2 position, Size size,Room room) : 
             base(position,size)
@@ -22,5 +24,7 @@ namespace Working_title.MapGenerator
         {
             return true;
         }
+
+        
     }
 }

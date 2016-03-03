@@ -45,6 +45,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Camera2D.cs" />
+    <Compile Include="Combat\AttackingSprite.cs" />
+    <Compile Include="Combat\KillableSprite.cs" />
+    <Compile Include="DataBase\ColumnData.cs" />
+    <Compile Include="DataBase\DataBaseConnector.cs" />
+    <Compile Include="DataBase\DatabaseReader.cs" />
+    <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Enemies\EnemyDrop.cs" />
+    <Compile Include="Enemies\EnemyDropType.cs" />
+    <Compile Include="Enemies\EnemyTier.cs" />
+    <Compile Include="Enemies\StandardEnemy.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Forms\LoginForm.cs" />
     <Compile Include="Forms\RegisterForm.cs" />
@@ -53,18 +63,22 @@
     <Compile Include="GameWorld\Screens\MapLoadingScreen.cs" />
     <Compile Include="GameWorld\Screens\MainMenuScreen.cs" />
     <Compile Include="GameWorld\Screens\MapScreen.cs" />
-    <Compile Include="GameWorld\Setup\DebugSetup.cs" />
+    <Compile Include="GameWorld\Setup\ColorSetup.cs" />
+    <Compile Include="GameWorld\Setup\EnemySetup.cs" />
     <Compile Include="GameWorld\Setup\GeneralSetup.cs" />
     <Compile Include="GameWorld\Setup\MainMenuSetup.cs" />
     <Compile Include="GameWorld\Setup\MapSetup.cs" />
     <Compile Include="GameWorld\Setup\PlayerSetup.cs" />
     <Compile Include="GameWorld\Screens\Screen.cs" />
     <Compile Include="LoginDBManager.cs" />
+    <Compile Include="Managers\GameManager.cs" />
     <Compile Include="MapGenerator\Builders\BuildObject.cs" />
     <Compile Include="MapGenerator\Cell.cs" />
     <Compile Include="MapGenerator\DeadEndRemover.cs" />
     <Compile Include="MapGenerator\Empty.cs" />
-    <Compile Include="MapGenerator\Enemy.cs" />
+    <Compile Include="Enemies\Factory\EnemyCreator.cs" />
+    <Compile Include="Enemies\Factory\EnemyFactory.cs" />
+    <Compile Include="MapGenerator\MapSpriteClasses\Cells\SpawedCell.cs" />
     <Compile Include="MapGenerator\Wall.cs" />
     <Compile Include="MapGenerator\Factories\CellCreator.cs" />
     <Compile Include="MapGenerator\Factories\CellFactory.cs" />
@@ -77,14 +91,7 @@
     <Compile Include="MapGenerator\GridMap.cs" />
     <Compile Include="MapGenerator\Builders\MazeBuilder.cs" />
     <Compile Include="MapGenerator\Room.cs" />
-    <Compile Include="MapGenerator\MapSpriteClasses\CellSprite.cs" />
-    <Compile Include="MapGenerator\MapSpriteClasses\Cells\DownLeftCell.cs" />
-    <Compile Include="MapGenerator\MapSpriteClasses\Cells\DownRightCell.cs" />
     <Compile Include="MapGenerator\MapSpriteClasses\Cells\EmptyCell.cs" />
-    <Compile Include="MapGenerator\MapSpriteClasses\Cells\RightRightCell.cs" />
-    <Compile Include="MapGenerator\MapSpriteClasses\Cells\UpLeftCell.cs" />
-    <Compile Include="MapGenerator\MapSpriteClasses\Cells\UpRightCell.cs" />
-    <Compile Include="MapGenerator\MapSpriteClasses\Cells\UpUpCell.cs" />
     <Compile Include="MapGenerator\MapSpriteClasses\DoorSprite.cs" />
     <Compile Include="MapGenerator\MapSpriteClasses\EmptyGameObject.cs" />
     <Compile Include="MapGenerator\MapSpriteClasses\RoomSprite.cs" />
@@ -94,6 +101,12 @@
     <Compile Include="MoveableClasses\KeyMoveInput.cs" />
     <Compile Include="MoveableClasses\KeyState.cs" />
     <Compile Include="MoveableClasses\Player.cs" />
+    <Compile Include="MoveableClasses\PlayerItems.cs" />
+    <Compile Include="MoveableClasses\UpdatePlayerStats.cs" />
+    <Compile Include="MoveableClasses\XP\GrowthStat.cs" />
+    <Compile Include="MoveableClasses\XP\Level.cs" />
+    <Compile Include="MoveableClasses\XP\PlayerStat.cs" />
+    <Compile Include="MoveableClasses\XP\LevelUpStat.cs" />
     <Compile Include="StrutureObjects\CollidingSprite.cs" />
     <Compile Include="StrutureObjects\GameObject.cs" />
     <Compile Include="Limit.cs" />
@@ -104,6 +117,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StrutureObjects\NonCollidingStaticSprite.cs" />
+    <Compile Include="UI\Bar.cs" />
     <Compile Include="UI\Buttons\AboutTheGame.cs" />
     <Compile Include="UI\Buttons\Credit.cs" />
     <Compile Include="UI\Buttons\ExitGame.cs" />
@@ -112,6 +126,7 @@
     <Compile Include="UI\Buttons\UIButtonState.cs" />
     <Compile Include="UI\Buttons\LoginOk.cs" />
     <Compile Include="UI\Buttons\Register.cs" />
+    <Compile Include="UI\HealthBar.cs" />
     <Compile Include="UI\InputFields\InputLogin.cs" />
     <Compile Include="UI\InputFields\InputPassword.cs" />
     <Compile Include="UI\InputFields\WishedLogin.cs" />
@@ -119,7 +134,9 @@
     <Compile Include="StrutureObjects\NonCollidingSprite.cs" />
     <Compile Include="StrutureObjects\Sprite.cs" />
     <Compile Include="GameWorld\Setup\WorldSetup.cs" />
-    <Compile Include="Utillity\LoadingBar.cs" />
+    <Compile Include="UI\LoadingBar.cs" />
+    <Compile Include="UI\MovingBar.cs" />
+    <Compile Include="UI\XpBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -166,12 +183,36 @@
     <Content Include="Content\btnStartGame.png" />
     <Content Include="Content\Images\Black.png" />
     <Content Include="Content\Images\Blue.jpg" />
+    <Content Include="Content\Images\Diverse\Background.png" />
+    <Content Include="Content\Images\Diverse\Door.png" />
+    <Content Include="Content\Images\Diverse\Room Floor.png" />
     <Content Include="Content\Images\Downleft.png" />
     <Content Include="Content\Images\DownRight.png" />
+    <Content Include="Content\Images\Enemies\Arch Demon.png" />
+    <Content Include="Content\Images\Enemies\Demon.png" />
+    <Content Include="Content\Images\Enemies\Fiend.png" />
+    <Content Include="Content\Images\Enemies\Imp.png" />
+    <Content Include="Content\Images\Enemies\Pit Lord.png" />
+    <Content Include="Content\Images\Enemies\Succubus.png" />
+    <Content Include="Content\Images\Enemies\Warlock.png" />
     <Content Include="Content\Images\green.png" />
     <Content Include="Content\Images\player.png" />
+    <Content Include="Content\Images\Player\Rogue.png" />
+    <Content Include="Content\Images\Player\Warrior.png" />
+    <Content Include="Content\Images\Player\Wizard.png" />
     <Content Include="Content\Images\RightRight.png" />
     <Content Include="Content\Images\StartGame.png" />
+    <Content Include="Content\Images\Tiles\Cross.png" />
+    <Content Include="Content\Images\Tiles\Down and Left.png" />
+    <Content Include="Content\Images\Tiles\Down and Right.png" />
+    <Content Include="Content\Images\Tiles\Down, Left and Right.png" />
+    <Content Include="Content\Images\Tiles\Left and Right.png" />
+    <Content Include="Content\Images\Tiles\Up and Down.png" />
+    <Content Include="Content\Images\Tiles\Up and Left.png" />
+    <Content Include="Content\Images\Tiles\Up and Right.png" />
+    <Content Include="Content\Images\Tiles\Up, Down and Left.png" />
+    <Content Include="Content\Images\Tiles\Up, Down and Right.png" />
+    <Content Include="Content\Images\Tiles\Up, Left and Right.png" />
     <Content Include="Content\Images\UpLeft.png" />
     <Content Include="Content\Images\UpRight.png" />
     <Content Include="Content\Images\UpUp.png" />
@@ -206,6 +247,7 @@
     <None Include="Content\StandardFont.spritefont" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.99.0\build\net46\System.Data.SQLite.Core.targets')" />
